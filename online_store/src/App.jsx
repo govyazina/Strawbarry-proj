@@ -9,9 +9,8 @@ import Bouquet from './views/Bouquet/Bouquet';
 import OrderList from './views/OrderList/OrderList';
 import OrderDetails from './views/OrderDetails/OrderDetails';
 import Cart from './views/Cart/Cart';
-import 'antd/dist/reset.css';
 import './App.css';
-import { store } from './store/store';
+import store from './store/store';
 
 function App() {
   return (

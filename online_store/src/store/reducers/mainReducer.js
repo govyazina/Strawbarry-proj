@@ -4,7 +4,7 @@ const initialState = {
   something: {},
 };
 
-function mainReducer(action, state = initialState) {
+function mainReducer(state = initialState, action = {}) {
   switch (action.type) {
     case mainTypes.DO_SOMETHING: {
       return { ...state, something: action.payload };
