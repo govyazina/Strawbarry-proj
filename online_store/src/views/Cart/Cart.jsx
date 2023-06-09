@@ -1,7 +1,15 @@
 import React from 'react';
+import SelectedBouquets from '../../components/SelectedBouquets/SelectedBouquets';
+import OrderForm from '../../components/OrderForm/OrderForm';
+import styles from './cart.module.scss';
 
-export default function Cart() {
+function Cart() {
   return (
-    <div>Hi</div>
+    <div className={styles.wrapper}>
+      <SelectedBouquets />
+      <OrderForm />
+    </div>
   );
 }
+
+export default Cart;
