@@ -1,0 +1,15 @@
+.orderFormWrapper {
+  display: flex;
+}
+
+.orderForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.deliveryTimeContainer,
+.deliveryContainer,
+.deliveryRadioContainer {
+  display: flex;
+  flex-direction: column;
+}
