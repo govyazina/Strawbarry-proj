@@ -1,3 +1,70 @@
 .container {
     font-size: 3rem;;
 }
+
+.header {
+    justify-content: space-evenly;
+    color: white;
+    background-color:  #BF4E55;
+}
+  
+.header_top {
+    display: flex;
+    height: 12vh;
+    margin-top: 2vh;
+    color: #BF4E55;
+    margin-bottom: 1vh;
+}
+  
+.address_top {
+    padding-left: 3vw;
+    width: 20vw;
+    
+}
+  
+.company_name {
+    margin-left: 10px;
+    margin-top: -25px;
+}
+  
+.logotype {
+    display: flex;
+    padding-left: 10vw;
+}
+
+  
+.our_name {
+    font-size: 20px;
+    
+}
+  
+.header_wrapper {
+    font-family: 'Arsenal', sans-serif;
+}
+  
+.slogan {
+    font-size: 2vh;
+}
+  
+.contacts {
+    display: flex;
+    margin-top: -20px;
+    font-size: small;
+    padding-right: 3vw;
+    padding-left: 3vw;
+}
+  
+.phone {
+    margin-left: 1vw;
+}
+  
+.phone_number {
+    margin-top: 2.5vh;
+    margin-left: 6vw;
+    display: grid;
+}
+
+.logo {
+    height: 13vh;
+    margin-top: -1vh;
+}
