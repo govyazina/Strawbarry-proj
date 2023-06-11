@@ -9,6 +9,10 @@ export const writeProductListAC = (data) => ({
   type: mainTypes.WRITE_PRODUCT_LIST,
   payload: data,
 });
+export const productListRequestedAC = () => ({
+  type: mainTypes.PRODUCT_LIST_REQUESTED,
+  payload: true,
+});
 
 export const getProductListThunk = () => (dispatch) => {
   fetch('https://strawberry.nmsc.pchapl.dev/product')
@@ -18,4 +22,7 @@ export const getProductListThunk = () => (dispatch) => {
         writeProductListAC(result),
       );
     });
+  dispatch(
+    productListRequestedAC(),
+  );
 };

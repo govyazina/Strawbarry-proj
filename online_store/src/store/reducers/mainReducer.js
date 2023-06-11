@@ -3,6 +3,7 @@ import mainTypes from '../actions/actionTypes';
 const initialState = {
   something: {},
   productList: [],
+  productListRequested: false,
 };
 
 function mainReducer(state = initialState, action = {}) {
@@ -12,6 +13,9 @@ function mainReducer(state = initialState, action = {}) {
     }
     case mainTypes.WRITE_PRODUCT_LIST: {
       return { ...state, productList: action.payload };
+    }
+    case mainTypes.PRODUCT_LIST_REQUESTED: {
+      return { ...state, productListRequested: action.payload };
     }
     default: {
       return state;

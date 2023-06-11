@@ -1,10 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Col, Row } from 'antd';
 import ProductCard from '../../components/ProductCard/ProductCard';
+import useProductList from '../../hooks/useProductList';
 
 export default function ProductList() {
-  const { productList } = useSelector((store) => store.mainStore);
+  const productList = useProductList();
   return (
     <Row gutter={[16, 16]}>
       {

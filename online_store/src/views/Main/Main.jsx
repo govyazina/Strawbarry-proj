@@ -1,19 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Title from 'antd/es/typography/Title';
 import Paragraph from 'antd/es/typography/Paragraph';
-import { useDispatch } from 'react-redux';
 import styles from './main.module.scss';
 import ProductFilter from '../ProductFilter/ProductFilter';
 import ProductList from '../ProductList/ProductList';
-import { getProductListThunk } from '../../store/actions/mainActions';
 
 export default function Main() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(
-      getProductListThunk(),
-    );
-  }, []);
   return (
     <main className={styles.main}>
       <Title>Букеты из клубники</Title>

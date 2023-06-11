@@ -1,6 +1,7 @@
 const mainTypes = {
   DO_SOMETHING: 'DO_SOMETHING',
   WRITE_PRODUCT_LIST: 'WRITE_PRODUCT_LIST',
+  PRODUCT_LIST_REQUESTED: 'PRODUCT_LIST_REQUESTED',
 };
 
 export default mainTypes;
