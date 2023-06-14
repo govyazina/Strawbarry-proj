@@ -44,7 +44,7 @@ function Map() {
 }
 
 function OrderForm() {
-  const [radio, setRadio] = useState(1);
+  const [radio, setRadio] = useState('no');
   // const [name, setName] = useState('');
   // const [phone, setPhone] = useState('');
   // const [email, setEmail] = useState('');
@@ -187,18 +187,18 @@ function OrderForm() {
         <Controller
           control={control}
           name="delivery"
-          // defaultValue="no"
-          render={({ field: { value } }) => (
+          defaultValue="no"
+          render={({ field: { value, onChange } }) => (
             <Radio.Group
               value={value}
-              onChange={(e) => setRadio(e.target.value)}
+              onChange={(e) => onChange(e.target.value) && setRadio(e.target.value)}
             >
-              <Radio value={1}>Самовывоз</Radio>
-              <Radio value={2}>Доставка до квартиры</Radio>
+              <Radio value="no">Самовывоз</Radio>
+              <Radio value="yes">Доставка до квартиры</Radio>
             </Radio.Group>
           )}
         />
-        {radio === 2 ? (
+        {radio === 'yes' ? (
           <Controller
             render={({ field }) => <Input {...field} placeholder="Введите адрес доставки или выберите точку на карте" />}
             name="address"
