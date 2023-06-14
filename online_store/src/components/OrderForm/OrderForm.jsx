@@ -1,24 +1,26 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
+// import { useDispatch } from 'react-redux';
+// import { sendOrderThunk } from '../../store/actions/mainActions';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
+import { useForm, Controller } from 'react-hook-form';
+
 import {
-  Button,
-  Form,
   Input,
   DatePicker,
   Typography,
   Space,
   Select,
   Radio,
-  Checkbox,
+  // Checkbox,
 } from 'antd';
 
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api'; // useLoadScript
-import { submitFormAC } from '../../store/actions/mainActions';
+// import { submitFormAC } from '../../store/actions/mainActions';
 import styles from './order-form.module.scss';
 
 const { Text } = Typography;
-const { Option } = Select;
 
 const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
@@ -28,18 +30,6 @@ const containerStyle = {
 };
 
 // const libraries = ['places'];
-
-const onChangeC = (e) => {
-  console.log(`checked = ${e.target.checked}`);
-};
-
-const validateMessages = {
-  required: 'Укажите Ваше имя',
-  types: {
-    email: 'Email is not a valid email!',
-    phone: 'Phone is not a valid phone!',
-  },
-};
 
 function Map() {
   return (
@@ -54,139 +44,117 @@ function Map() {
 }
 
 function OrderForm() {
-  const [value, setValue] = useState(1);
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [date, setDate] = useState(new Date());
-  const [time, setTime] = useState('');
-  const [address, setAddress] = useState('');
-  const [recipient, setRecipient] = useState('');
-  const [recipientPhone, setRecipientPhone] = useState('');
-  const [card, setCard] = useState('');
-  const [comment, setComment] = useState('');
+  const [radio, setRadio] = useState(1);
+  // const [name, setName] = useState('');
+  // const [phone, setPhone] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [date, setDate] = useState(new Date());
+  // const [time, setTime] = useState('');
+  // const [address, setAddress] = useState('');
+  // const [recipient, setRecipient] = useState('');
+  // const [recipientPhone, setRecipientPhone] = useState('');
+  // const [card, setCard] = useState('');
+  // const [comment, setComment] = useState('');
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(sendOrderThunk());
+  // }, [dispatch]);
+
+  // const sendOrder = () => {
+  //   dispatch(sendOrderThunk());
+  // };
+
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm({ mode: 'onBlur' });
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: API_KEY,
   });
 
-  const onChangeDate = (valueDate) => {
-    setDate(valueDate);
-    console.log(valueDate);
-  };
+  // const handleSubmitq = (e) => {
+  //   e.preventDefault();
 
-  const onChangeTime = (valueTime) => {
-    setDate(valueTime);
-    console.log(valueTime);
-  };
+  //   if (name) {
+  //     dispatch(submitFormAC({
+  //       name,
+  //       phone,
+  //       email,
+  //       date,
+  //       id: Date.now(),
+  //       time,
+  //       address,
+  //       recipient,
+  //       recipientPhone,
+  //       card,
+  //       comment,
+  //     }));
+  //     navigate('/orderlist');
+  //   }
+  //   setName('');
+  //   setPhone('');
+  //   setEmail('');
+  //   setDate(new Date());
+  //   setTime('');
+  //   setAddress('');
+  //   setRecipient('');
+  //   setRecipientPhone('');
+  //   setCard('');
+  //   setComment('');
+  //   console.log('успех');
+  // };
 
-  const onFinish = (e) => {
-    e.preventDefault();
+  const { control, handleSubmit } = useForm();
 
-    if (name) {
-      dispatch(submitFormAC({
-        name,
-        phone,
-        email,
-        date,
-        id: Date.now(),
-        time,
-        address,
-        recipient,
-        recipientPhone,
-        card,
-        comment,
-      }));
-      navigate('/orderlist');
-    }
-    setName('');
-    setPhone('');
-    setEmail('');
-    setDate(new Date());
-    setTime('');
-    setAddress('');
-    setRecipient('');
-    setRecipientPhone('');
-    setCard('');
-    setComment('');
-    console.log('успех');
+  const onSubmit = (data) => {
+    console.log(JSON.stringify(data));
+    navigate('/orderlist');
   };
 
   return (
     <Space className={styles.orderFormWrapper}>
-      <Form
-        name="nest-messages"
-        onSubmit={onFinish}
-        style={{
-          maxWidth: 600,
-        }}
-        validateMessages={validateMessages}
-        className={styles.orderForm}
-      >
-        <Form.Item
-          name={['user', 'name']}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input
-            placeholder="Ваше имя"
-            onChange={(event) => setName(event.target.value)}
-            value={name}
-          />
-        </Form.Item>
-
-        <Form.Item
-          name={['user', 'phone']}
-          rules={[
-            {
-              type: 'phone',
-            },
-          ]}
-        >
-          <Input
-            placeholder="+357-xx-xxx-xxx"
-            onChange={(event) => setPhone(event.target.value)}
-            value={phone}
-          />
-        </Form.Item>
-
-        <Form.Item
-          name={['user', 'email']}
-          rules={[
-            {
-              type: 'email',
-            },
-          ]}
-        >
-          <Input
-            placeholder="Ваш e-mail"
-            onChange={(event) => setEmail(event.target.value)}
-            value={email}
-          />
-        </Form.Item>
-
-        <Form.Item
-          name={['user', 'date']}
-          rules={[
-            {
-              type: 'date',
-            },
-          ]}
-        >
-          <DatePicker
-            placeholder="Выберите дату"
-            onChange={onChangeDate}
-            selected={date}
-          />
-        </Form.Item>
-
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Controller
+          render={({ field }) => <Input {...field} placeholder="Ваше имя" />}
+          name="name"
+          rules={{ required: true }}
+          control={control}
+          defaultValue=""
+        />
+        <Controller
+          render={({ field }) => <Input {...field} placeholder="Телефон +357-xx-xxx-xxx" />}
+          name="phone"
+          type="phone"
+          control={control}
+          defaultValue=""
+        />
+        <Controller
+          render={({ field }) => <Input {...field} placeholder="Ваш e-mail" />}
+          name="email"
+          type="email"
+          control={control}
+          defaultValue=""
+        />
+        <Controller
+          render={({ field }) => (
+            <DatePicker
+              {...field}
+              onChange={(e) => field.onChange(e)}
+              selected={field.value}
+              placeholder="Выберите дату"
+            />
+          )}
+          name="date"
+          type="date"
+          control={control}
+          defaultValue=""
+        />
         <Space className={styles.deliveryTimeContainer}>
           <Text>Интервал доставки</Text>
           <Text>
@@ -194,120 +162,90 @@ function OrderForm() {
             Заказы, оформленные после 18:00, доставляются на следующий день.
           </Text>
         </Space>
-        <Form.Item
-          name="select"
-          hasFeedback
-          rules={[{ required: true, message: 'Выберите время доставки' }]}
-        >
-          <Select placeholder="Выберите время доставки" onChange={onChangeTime}>
-            <Option value="09:00-11:00">09:00-11:00</Option>
-            <Option value="11:00-13:00">11:00-13:00</Option>
-            <Option value="13:00-15:00">13:00-15:00</Option>
-            <Option value="15:00-17:00">15:00-17:00</Option>
-            <Option value="17:00-19:00">17:00-19:00</Option>
-            <Option value="19:00-21:00">19:00-21:00</Option>
-          </Select>
-        </Form.Item>
-
+        <Controller
+          className={styles.orderSelect}
+          name="time"
+          control={control}
+          defaultValue="09:00-11:00"
+          render={({ field }) => (
+            <Select
+              {...field}
+              options={[
+                { value: '09:00-11:00', label: '09:00-11:00' },
+                { value: '11:00-13:00', label: '11:00-13:00' },
+                { value: '13:00-15:00', label: '13:00-15:00' },
+                { value: '15:00-17:00', label: '15:00-17:00' },
+                { value: '17:00-19:00', label: '17:00-19:00' },
+                { value: '19:00-21:00', label: '19:00-21:00' },
+              ]}
+            />
+          )}
+        />
         <Space className={styles.deliveryContainer}>
           <Text>Способ доставки</Text>
         </Space>
-        <Form.Item>
-          <Radio.Group onChange={(e) => setValue(e.target.value)} value={value}>
-            <Radio value={1}>Самовывоз</Radio>
-            <Radio value={2}>Доставка до квартиры</Radio>
-          </Radio.Group>
-        </Form.Item>
-        {value === 2 ? (
-          <Form.Item
-            name={['user', 'address']}
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Input
-              placeholder="Введите адрес доставки или выберите точку на карте"
-              onChange={(event) => setAddress(event.target.value)}
-              value={address}
-            />
-          </Form.Item>
+        <Controller
+          control={control}
+          name="delivery"
+          // defaultValue="no"
+          render={({ field: { value } }) => (
+            <Radio.Group
+              value={value}
+              onChange={(e) => setRadio(e.target.value)}
+            >
+              <Radio value={1}>Самовывоз</Radio>
+              <Radio value={2}>Доставка до квартиры</Radio>
+            </Radio.Group>
+          )}
+        />
+        {radio === 2 ? (
+          <Controller
+            render={({ field }) => <Input {...field} placeholder="Введите адрес доставки или выберите точку на карте" />}
+            name="address"
+            control={control}
+            defaultValue=""
+          />
         ) : (
-          <Text>Самовывоз по адресу: Γεωρ. Α 87, Γερμασόγεια</Text>
+          <Controller
+            render={() => <Text>Самовывоз по адресу: Γεωρ. Α 87, Γερμασόγεια</Text>}
+            name="address"
+            control={control}
+            defaultValue=""
+          />
         )}
-
-        <Form.Item>
-          <Checkbox onChange={onChangeC}>Уточнить адрес и время у получателя</Checkbox>
-        </Form.Item>
-
         <Text>Если заказ получаете не Вы, заполните также контакты получателя</Text>
-        <Form.Item
-          name={['recipient', 'name']}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input
-            placeholder="Имя получателя"
-            onChange={(event) => setRecipient(event.target.value)}
-            value={recipient}
-          />
-        </Form.Item>
-        <Form.Item
-          name={['recipient', 'phone']}
-          rules={[
-            {
-              type: 'phone',
-            },
-          ]}
-        >
-          <Input
-            placeholder="Телефон получателя +357-xx-xxx-xxx"
-            onChange={(event) => setRecipientPhone(event.target.value)}
-            value={recipientPhone}
-          />
-        </Form.Item>
-        <Form.Item
-          name={['recipient', 'card']}
-          rules={[
-            {
-              type: 'text',
-            },
-          ]}
-        >
-          <Input
-            placeholder="Текст открытки"
-            onChange={(event) => setCard(event.target.value)}
-            value={card}
-          />
-        </Form.Item>
-        <Form.Item name={['recipient', 'introduction']}>
-          <Input.TextArea
-            placeholder="Комментарий"
-            onChange={(event) => setComment(event.target.value)}
-            value={comment}
-          />
-        </Form.Item>
-
+        <Controller
+          render={({ field }) => <Input {...field} placeholder="Имя получателя" />}
+          name="recipient-name"
+          control={control}
+          defaultValue=""
+        />
+        <Controller
+          render={({ field }) => <Input {...field} placeholder="Телефон получателя +357-xx-xxx-xxx" />}
+          name="recipient-phone"
+          type="phone"
+          control={control}
+          defaultValue=""
+        />
+        <Controller
+          render={({ field }) => <Input {...field} placeholder="Текст открытки" />}
+          name="postcard"
+          type="text"
+          control={control}
+          defaultValue=""
+        />
+        <Controller
+          render={({ field }) => <Input.TextArea {...field} placeholder="Ваш комментарий" />}
+          name="comment"
+          control={control}
+          defaultValue=""
+        />
         <Space className={styles.deliveryContainer}>
           <Text>Сумма: </Text>
           <Text>рублей</Text>
         </Space>
-
-        <Form.Item
-          wrapperCol={{
-            offset: 8,
-            span: 16,
-          }}
-        >
-          <Button type="primary" htmlType="submit">
-            Заказать
-          </Button>
-        </Form.Item>
-      </Form>
+        <input type="submit" />
+      </form>
       <Space>
         {isLoaded ? <Map /> : <h2>Loading...</h2>}
       </Space>
