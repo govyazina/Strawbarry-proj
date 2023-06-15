@@ -2,7 +2,6 @@ import mainTypes from '../actions/actionTypes';
 
 const initialState = {
   something: {},
-  form: {},
 };
 
 function mainReducer(state = initialState, action = {}) {
