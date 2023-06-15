@@ -1,0 +1,16 @@
+.container {
+    margin: 3rem;
+    align-items: center;
+}
+.orderCard {
+    width: 70vw;
+}
+.smallImg {
+    height: 120px;
+    width: 120px;
+}
+.smallImg img {
+    object-fit: cover;
+    width: 90%;
+    height: 100%;
+}
