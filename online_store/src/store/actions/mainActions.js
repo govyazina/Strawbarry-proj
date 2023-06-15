@@ -5,28 +5,24 @@ export const doSomethingAC = (data) => ({
   payload: data,
 });
 
-export const sendOrderThunkAC = (submitFormData) => ({
-  type: mainTypes.SUBMIT_FORM,
-  payload: submitFormData,
+export const writeProductListAC = (data) => ({
+  type: mainTypes.WRITE_PRODUCT_LIST,
+  payload: data,
+});
+export const productListRequestedAC = () => ({
+  type: mainTypes.PRODUCT_LIST_REQUESTED,
+  payload: true,
 });
 
-// Кто первая напишет сюда еще одну функцию ...AC удали, пожалуйста, строку 3 с eslint-disable
-
-// export const getCharacterThunk = () => (dispatch) => {
-//   fetch(`https://strawberry.nmsc.pchapl.dev/order`)
-//     .then((data) => data.json())
-//     .then((result) => dispatch(sendOrderThunkAC(result)));
-// };
-
-// export const getProductListThunk = () => (dispatch) => {
-//   fetch('https://strawberry.nmsc.pchapl.dev/product')
-//     .then((data) => data.json())
-//     .then((result) => {
-//       dispatch(
-//         writeProductListAC(result),
-//       );
-//     });
-//   dispatch(
-//     productListRequestedAC(),
-//   );
-// }
+export const getProductListThunk = () => (dispatch) => {
+  fetch('https://strawberry.nmsc.pchapl.dev/product')
+    .then((data) => data.json())
+    .then((result) => {
+      dispatch(
+        writeProductListAC(result),
+      );
+    });
+  dispatch(
+    productListRequestedAC(),
+  );
+};
