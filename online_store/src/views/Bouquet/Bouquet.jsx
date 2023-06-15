@@ -28,12 +28,13 @@ export default function Bouquet() {
   };
   const handleAddToCart = () => {
     const orderItem = {
-      id: product.sku,
+      id: 0,
+      sku: product.sku,
       berries: selectedBerries,
       topper: selectedTopper,
+      quantity: 1,
     };
     dispatch(addToCartAC(orderItem));
-    console.log(orderItem);
   };
 
   return (
