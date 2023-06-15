@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from './order.module.scss';
+import styles from './orderCart.module.scss';
 import { CloseOutlined, UpOutlined, DownOutlined } from '@ant-design/icons';
 import {deleteCartAC} from '../../store/actions/mainActions';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 
-function Order({product, increase, decrease}) {
+function OrderCart({product, increase, decrease}) {
 
   
   
@@ -39,14 +39,14 @@ function Order({product, increase, decrease}) {
           <section className={styles.order__wrap}>
           <div className={styles.cart__body}>
             <div className={styles.bouquetPic}>
-              <img className={styles.cartPic} src='' alt='choicePic' />
+              <img className={styles.cartPic} src={description.photos[0]} alt='choicePic' />
               <div className={styles.bouquetView}>
               <Link to={"/bouquet/${id}"} className={styles.link}>
                 {product.name_title}
               </Link>
               <p className={styles.addings}>
                 <p> {description.title}</p>
-                {/* <p>Ягоды: {product.description.product_details.berries}</p> */}
+                <p>Ягоды: {description.product_details.berries[0]}</p>
                 <p>Топпинги: {description.product_details.topping}</p>
               </p>
             </div>
@@ -55,7 +55,7 @@ function Order({product, increase, decrease}) {
           </div>
           
           <div className={styles.quantity}>
-            <input type='number' className={styles.count__input} min='1' value={count} onChange={(e) => changeValue(id, +e.target.value)} />
+            <input type='text' className={styles.count__input} min='1' value={count} onChange={(e) => changeValue(id, +e.target.value)} />
             <div className={styles.control}>
             <button className={styles.button__quantity} onClick={() => increase(id)}>
               <UpOutlined />
@@ -74,4 +74,4 @@ function Order({product, increase, decrease}) {
     );
 }
 
-export default Order;
+export default OrderCart;

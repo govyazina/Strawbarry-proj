@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 // import useProductList from '../../hooks/useProductList';
 import styles from './selectedBouquets.module.scss';
-import Order from '../../views/Order/Order';
+import OrderCart from '../../views/OrderCart/OrderCart';
 
 
 
@@ -134,7 +134,7 @@ const changeValue = (id, value) => {
 
  
  const products = cart.map(product =>{
-  return <Order product = {product} key = {product.id} increase={increase} decrease={decrease} changeValue={changeValue} />
+  return <OrderCart product = {product} key = {product.id} increase={increase} decrease={decrease} changeValue={changeValue} />
  })
 
   // let sum = 0;
