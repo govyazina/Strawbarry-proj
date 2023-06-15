@@ -1,9 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
-// import { useSelector } from 'react-redux';
-// import { sendOrderThunk } from '../../store/actions/mainActions';
-// import { submitFormAC } from '../../store/actions/mainActions';
-import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { useForm, Controller } from 'react-hook-form';
 
@@ -44,7 +41,6 @@ function Map() {
 
 function OrderForm() {
   const [radio, setRadio] = useState('no');
-  const navigate = useNavigate();
   // const dispatch = useDispatch();
 
   const { isLoaded } = useJsApiLoader({
@@ -52,12 +48,64 @@ function OrderForm() {
     googleMapsApiKey: API_KEY,
   });
 
-  const { control, handleSubmit } = useForm();
-  // const { products } = useSelector((store) => store.mainStore);
+  const { control, handleSubmit, reset } = useForm();
+  const { products } = useSelector((store) => store.mainStore.cart);
+
+  console.log(products);
+
+  // const onSubmit = (data) => {
+  //   console.log(JSON.stringify(data));
+  //   navigate('/orderlist');
+  // };
+
+  // const orderData = {
+  //   products: [
+  //     {
+  //       sku: 'string',
+  //       count: 2,
+  //       product_price: 2,
+  //       product_details: {
+  //         berries: 'string',
+  //         topping: 'string',
+  //       },
+  //     },
+  //   ],
+  //   data: {
+  //     name: 'string',
+  //     phone: 'string',
+  //     email: 'string',
+  //     date: 'string',
+  //     time: 'string',
+  //     delivery: 'string',
+  //     address: 'string',
+  //     'recipient-name': 'string',
+  //     'recipient-phone': 'string',
+  //     postcard: 'string',
+  //     comment: 'string',
+  //   },
+  //   price: {
+  //     order_price: 2,
+  //     delivery_price: 2,
+  //     total_price: 2,
+  //   },
+  // };
 
   const onSubmit = (data) => {
+    // const orderData = {
+
+    // }
+
+    // const res = await fetch('https://strawberry.nmsc.pchapl.dev/order', {
+    //   method: 'POST',
+    //   body: JSON.stringify(data),
+    // });
+    // if (res.status === 200) {
+    //   // вызвать модалку
+    // } else {
+    //   console.log('Error');
+    // }
     console.log(JSON.stringify(data));
-    navigate('/orderlist');
+    reset();
   };
 
   return (
