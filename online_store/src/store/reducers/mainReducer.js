@@ -23,4 +23,16 @@ function mainReducer(state = initialState, action = {}) {
   }
 }
 
+export function deleteCartReducer(state = initialState, action) {
+  switch (action.type) {
+    case mainTypes.DELETE_CART: {
+      return { ...state, productList: state.productList.filter(el => el.id !==
+        action.payload)}
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
 export default mainReducer;

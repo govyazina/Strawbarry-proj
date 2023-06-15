@@ -1,0 +1,14 @@
+.bouquetWrapper {
+    display:block;
+    padding: 20px 10px 10px 20px;
+}
+
+.sum {
+    grid-column-start: 2;
+}
+
+.table__footer {
+    display: grid;
+    grid-template-columns: 5fr 3fr 5fr;
+
+}

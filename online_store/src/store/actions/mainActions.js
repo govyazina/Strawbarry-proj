@@ -14,6 +14,11 @@ export const productListRequestedAC = () => ({
   payload: true,
 });
 
+export const deleteCartAC = (data) => ({
+  type: mainTypes.DELETE_CART,
+  payload: data,
+})
+
 export const getProductListThunk = () => (dispatch) => {
   fetch('https://strawberry.nmsc.pchapl.dev/product')
     .then((data) => data.json())
