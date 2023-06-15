@@ -35,7 +35,7 @@ function mainReducer(state = initialState, action = {}) {
         const newItem = { ...orderItem, id: cart.length, quantity: 1 };
         return { ...state, cart: [...updatedCart, newItem] };
       }
-      console.log(updatedCart);
+      console.log(state.cart);
       return { ...state, cart: updatedCart };
     }
     default: {
