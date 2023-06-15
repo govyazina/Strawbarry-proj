@@ -1,7 +1,7 @@
 import mainTypes from '../actions/actionTypes';
 
 const initialState = {
-  something: {},
+  cart: [],
   productList: [],
   productListRequested: false,
 };
@@ -16,6 +16,9 @@ function mainReducer(state = initialState, action = {}) {
     }
     case mainTypes.PRODUCT_LIST_REQUESTED: {
       return { ...state, productListRequested: action.payload };
+    }
+    case mainTypes.ADD_TO_CART: {
+      return { ...state, cart: [...state.cart, action.payload] };
     }
     default: {
       return state;
