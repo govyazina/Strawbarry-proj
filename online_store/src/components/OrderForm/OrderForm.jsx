@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 // import { sendOrderThunk } from '../../store/actions/mainActions';
 // import { submitFormAC } from '../../store/actions/mainActions';
 import { useNavigate } from 'react-router-dom';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { useForm, Controller } from 'react-hook-form';
 
 import {
@@ -15,6 +16,7 @@ import {
   Radio,
 } from 'antd';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api'; // useLoadScript
 import styles from './order-form.module.scss';
 
