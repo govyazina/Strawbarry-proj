@@ -1,0 +1,143 @@
+.orderFormWrapper {
+  display: flex;
+  margin: 10vh 0;
+  gap: 50px;
+  width: 100%;
+}
+
+.orderForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.textContainer,
+.selfDelivery {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 50px 0 20px 0;
+}
+
+.formItemsWrapper {
+  display: flex;
+  width: 50%;
+}
+
+.formWrapper {
+  width: 100%;
+}
+
+.formAddress {
+  display: block;
+}
+
+.inputs {
+  width: 100%;
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid #aaaaaa;
+  height: 50px;
+}
+
+.inputs:focus {
+  border-radius: 0;
+  box-shadow: none;
+  border-color: #FFC2C6;
+}
+
+.inputs:hover {
+  border-radius: 0;
+  box-shadow: none;
+  border-color: #FFC2C6;
+}
+
+.inputSelect {
+  width: 100%;
+  // border: 0;
+  // border-radius: 0;
+  // border-bottom: 1px solid #aaaaaa;
+  // height: 50px;
+}
+
+.selfDelivery {
+  margin: 28px 0 20px 0;
+}
+
+.formButtonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 50px;
+}
+
+.formButton {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 10px;
+  background-color: #BF4E55;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.formButton:hover {
+  background-color: #BE1E2D;
+}
+
+.formTitle {
+  font-size: 1.2rem;
+  color: #BF4E55;
+}
+
+.formPrice {
+  font-weight: 600;
+}
+
+// .formRadio {
+//   background-color:#BE1E2D;
+// }
+
+// .formRad {
+// 	display: none;
+// }
+// .formRadio label {
+// 	display: inline-block;
+// 	cursor: pointer;
+// 	position: relative;
+// 	// padding-left: 25px;
+// 	margin-right: 0;
+// 	line-height: 18px;
+// 	user-select: none;
+// }
+// .formRadio label:before {
+// 	content: "";
+// 	display: inline-block;
+// 	width: 17px;
+// 	height: 18px;
+// 	position: absolute;
+// 	left: 0;
+//   z-index: 5;
+// 	bottom: 1px;
+//   border-radius: 3px;
+// 	background: #BE1E2D;
+// }
+ 
+// /* Checked */
+// .formRadio input[type=radio]:checked + label:before {
+// 	background: #BE1E2D;
+// }
+
+// .formRadio input[type=radio]:checked {
+// 	background: #BE1E2D;
+// }
+ 
+// /* Hover */
+// .formRadio label:hover {
+// 	filter: brightness(120%);
+// }
+ 
+// /* Disabled */
+// .formRadio input[type=radio]:disabled + label:before {
+// 	filter: grayscale(100%);
+// }
+

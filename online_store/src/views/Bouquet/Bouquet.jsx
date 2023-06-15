@@ -33,7 +33,6 @@ export default function Bouquet() {
       topper: selectedTopper,
     };
     dispatch(addToCartAC(orderItem));
-    console.log(orderItem);
   };
 
   return (
