@@ -1,7 +1,8 @@
 import React from 'react';
 import { Menu } from 'antd';
+import { Link } from 'react-router-dom';
 // eslint-disable-next-line import/no-extraneous-dependencies, no-unused-vars
-import { PhoneOutlined, MailOutlined, GlobalOutlined } from '@ant-design/icons';
+import { PhoneOutlined, MailOutlined } from '@ant-design/icons';
 import styles from './header.module.scss';
 import logo from '../../assets/images/logo.png';
 
@@ -29,15 +30,13 @@ export default function Header() {
             </p>
           </div>
           <div className={styles.phone_number}>
-            <PhoneOutlined style={{ color: '#BF4E55', fontSize: 15 }} />
-            <MailOutlined style={{ color: '#BF4E55', fontSize: 15, marginTop: 40 }} />
+            <PhoneOutlined className={styles.symbol} />
+            <MailOutlined className={styles.envelope} />
           </div>
           <div className={styles.phone}>
-
             <p>
               8 800 111 22 33
             </p>
-
             <p>
               Звонок бесплатный
             </p>
@@ -47,24 +46,17 @@ export default function Header() {
           </div>
         </section>
       </div>
-      <Menu
-        className={styles.header}
-        mode="horizontal"
-        items={[
-          {
-            label: 'Главная',
-            key: 'home',
-          },
-          {
-            label: 'О нас',
-            key: 'about',
-          },
-          {
-            label: 'Заказы',
-            key: 'orders',
-          },
-        ]}
-      />
+      <Menu mode="horizontal" className={styles.header}>
+      <Link to="/">
+        <Menu.Item key="home" className={styles.menu__item}>Главная</Menu.Item>
+      </Link>
+      <Link to="/about">
+        <Menu.Item key="about" className={styles.menu__item}>О нас</Menu.Item>
+      </Link>
+      <Link to="/orderlist">
+        <Menu.Item key="orderlist" className={styles.menu__item}>Заказы</Menu.Item>
+      </Link>
+      </Menu>
     </div>
 
   );
