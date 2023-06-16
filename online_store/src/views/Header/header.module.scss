@@ -17,7 +17,7 @@
   
 .address_top {
     padding-left: 3vw;
-    width: 20vw;
+    width: 30vw;
     font-size: 0.7em;
     text-align: center;
 }
@@ -28,6 +28,7 @@
   
 .logotype {
     display: flex;
+    width: 50vw;
 }
 
   
@@ -65,6 +66,7 @@
     height: 13vh;
     margin-top: -1vh;
     object-fit: contain;
+    width: 10vw;
 }
 
 .symbol {
@@ -80,4 +82,9 @@
 
 .menu__item {
     color: white;
+    background-color:  #BF4E55;
+}
+
+.menu__active {
+    background-color:  #BF4E55
 }

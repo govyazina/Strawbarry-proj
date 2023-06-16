@@ -1,6 +1,6 @@
 import React from 'react';
 import { Menu } from 'antd';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 // eslint-disable-next-line import/no-extraneous-dependencies, no-unused-vars
 import { PhoneOutlined, MailOutlined } from '@ant-design/icons';
 import styles from './header.module.scss';
@@ -46,16 +46,16 @@ export default function Header() {
           </div>
         </section>
       </div>
-      <Menu mode="horizontal" className={styles.header}>
-      <Link to="/">
-        <Menu.Item key="home" className={styles.menu__item}>Главная</Menu.Item>
-      </Link>
-      <Link to="/about">
-        <Menu.Item key="about" className={styles.menu__item}>О нас</Menu.Item>
-      </Link>
-      <Link to="/orderlist">
-        <Menu.Item key="orderlist" className={styles.menu__item}>Заказы</Menu.Item>
-      </Link>
+      <Menu mode="horizontal" className={styles.header} activeClassName={styles.menu__active}>
+      <NavLink to="/">
+        <Menu.Item key="home" className={styles.menu__item} activeClassName={styles.menu__active}>Главная</Menu.Item>
+      </NavLink>
+      <NavLink to="/about">
+        <Menu.Item key="about" className={styles.menu__item} activeClassName={styles.menu__active}>О нас</Menu.Item>
+      </NavLink>
+      <NavLink to="/orderlist">
+        <Menu.Item key="orderlist" className={styles.menu__item} activeClassName={styles.menu__active}>Заказы</Menu.Item>
+      </NavLink>
       </Menu>
     </div>
 
