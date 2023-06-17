@@ -11,10 +11,12 @@ import {
   Space,
   Select,
   Radio,
+  Modal,
 } from 'antd';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api'; // useLoadScript
+// import useProductList from '../../hooks/useProductList';
 import styles from './order-form.module.scss';
 
 const { Text, Paragraph } = Typography;
@@ -43,15 +45,23 @@ function OrderForm() {
   const [radio, setRadio] = useState('no');
   // const dispatch = useDispatch();
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: API_KEY,
   });
 
   const { control, handleSubmit, reset } = useForm();
-  const { products } = useSelector((store) => store.mainStore.cart);
+  const cart = useSelector((store) => store.mainStore.cart);
 
-  console.log(products);
+  console.log(cart);
 
   // const onSubmit = (data) => {
   //   console.log(JSON.stringify(data));
@@ -105,6 +115,7 @@ function OrderForm() {
     //   console.log('Error');
     // }
     console.log(JSON.stringify(data));
+    setIsModalOpen(true);
     reset();
   };
 
@@ -189,7 +200,7 @@ function OrderForm() {
                 onChange={(e) => onChange(e.target.value) && setRadio(e.target.value)}
               >
                 <Radio value="no" className={styles.formRad}>Самовывоз</Radio>
-                <Radio value="yes" className={styles.formRad}>Доставка до квартиры</Radio>
+                <Radio value="yes" className={styles.formRad}>Доставка до квартиры - 500€</Radio>
               </Radio.Group>
             )}
           />
@@ -253,6 +264,14 @@ function OrderForm() {
             </div>
             <button className={styles.formButton} type="submit">Оформить заказ</button>
           </div>
+          <Modal
+            centered
+            open={isModalOpen}
+            onOk={handleOk}
+            onCancel={handleCancel}
+          >
+            <p>Спасибо за заказ!</p>
+          </Modal>
 
         </form>
       </div>
