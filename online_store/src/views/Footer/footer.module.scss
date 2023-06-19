@@ -1,0 +1,48 @@
+.footer__disclaimer {
+    font-size: 0.6em;
+    margin-top: 2vh;
+}
+
+.footer {
+    background-color: #BF4E55;
+    color: white;
+    font-family: 'Arsenal', sans-serif;
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+}
+
+.footer__img {
+    height: 10vh;
+    object-fit: contain;
+    width: 10vw;
+    padding: 0.2em 0.5em 0.5em;
+}
+
+.footer__logo_wrapper {
+    padding-top: 2vh;
+}
+
+.footer__logo {
+    display: flex;
+}
+
+.footer__slogan {
+    font-size: 0.7em;
+}
+
+.footer__name {
+    margin-bottom: 0.5em;
+}
+
+.footer__about {
+    color: white;
+    text-decoration: none;
+}
+
+.footer__about:link {
+    color: white;
+}
+
+.footer__middle {
+    margin-top: 2vh;
+}
