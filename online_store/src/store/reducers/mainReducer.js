@@ -32,10 +32,11 @@ function mainReducer(state = initialState, action = {}) {
         return item;
       });
       if (!itemFound) {
-        const newItem = { ...orderItem, id: cart.length, quantity: 1 };
+        const newItem = { ...orderItem, id: cart.length + 1 };
         return { ...state, cart: [...updatedCart, newItem] };
       }
-      console.log(state.cart);
+      console.log(updatedCart);
+
       return { ...state, cart: updatedCart };
     }
     default: {
