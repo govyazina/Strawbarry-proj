@@ -1,6 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable camelcase */
+import React, { useState, useCallback } from 'react';
+// import { useSelector } from 'react-redux';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { useForm, Controller } from 'react-hook-form';
 
@@ -15,35 +17,45 @@ import {
 } from 'antd';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api'; // useLoadScript
-// import useProductList from '../../hooks/useProductList';
+import { useJsApiLoader } from '@react-google-maps/api';
 import styles from './order-form.module.scss';
+
+import PlacesAutocomplete from './Auto';
+import { Map, MODES } from './Map';
 
 const { Text, Paragraph } = Typography;
 
 const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-const containerStyle = {
-  width: '100%',
-  height: '100%',
+
+const defaultCenter = {
+  lat: 34.69705133064743,
+  lng: 33.09065538465354,
 };
 
 // const libraries = ['places'];
 
-function Map() {
-  return (
-    <GoogleMap
-      zoom={10}
-      center={{ lat: 34.69705133064743, lng: 33.09065538465354 }}
-      mapContainerStyle={containerStyle}
-    >
-      <Marker position={{ lat: 34.69705133064743, lng: 33.09065538465354 }} />
-    </GoogleMap>
-  );
-}
-
 function OrderForm() {
+  const [center, setCenter] = useState(defaultCenter);
+  const [mode, setMode] = useState(MODES.MOVE);
+  const [markers, setMarkers] = useState([]);
+
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: API_KEY,
+  });
+
+  const onPlaceSelect = useCallback(
+    (coordinates) => {
+      setCenter(coordinates);
+      // if (MODES.SET_MARKERS) {
+      //   const [pos] = toAuto;
+      //   setCenter(pos);
+      // }
+    },
+    [],
+  );
+
   const [radio, setRadio] = useState('no');
-  // const dispatch = useDispatch();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleOk = () => {
@@ -53,20 +65,10 @@ function OrderForm() {
     setIsModalOpen(false);
   };
 
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: API_KEY,
-  });
-
   const { control, handleSubmit, reset } = useForm();
-  const cart = useSelector((store) => store.mainStore.cart);
+  // const cart = useSelector((store) => store.mainStore.cart);
 
-  console.log(cart);
-
-  // const onSubmit = (data) => {
-  //   console.log(JSON.stringify(data));
-  //   navigate('/orderlist');
-  // };
+  // console.log(cart);
 
   // const orderData = {
   //   products: [
@@ -100,7 +102,7 @@ function OrderForm() {
   //   },
   // };
 
-  const onSubmit = (data) => {
+  const onSubmit = (dataA) => {
     // const orderData = {
 
     // }
@@ -114,10 +116,28 @@ function OrderForm() {
     // } else {
     //   console.log('Error');
     // }
-    console.log(JSON.stringify(data));
+    console.log(JSON.stringify(dataA));
     setIsModalOpen(true);
     reset();
   };
+
+  const toggleMode = useCallback(() => {
+    switch (mode) {
+      case MODES.MOVE:
+        setMode(MODES.SET_MARKER);
+        break;
+      case MODES.SET_MARKER:
+        setMode(MODES.MOVE);
+        break;
+      default:
+        setMode(MODES.MOVE);
+    }
+    console.log(mode);
+  }, [mode]);
+
+  const onMarkerAdd = useCallback((coordinates) => {
+    setMarkers([...markers, coordinates]);
+  }, [markers]);
 
   return (
     <div className={styles.orderFormWrapper}>
@@ -206,7 +226,15 @@ function OrderForm() {
           />
           {radio === 'yes' ? (
             <Controller
-              render={({ field }) => <Input className={styles.inputs} {...field} placeholder="Введите адрес доставки или выберите точку на карте" />}
+              render={({ field }) => (
+                <div>
+                  <Input
+                    {...field}
+                    className={styles.input}
+                    placeholder="Введите адрес доставки (можно воспользоваться поиском на карте)"
+                  />
+                </div>
+              )}
               name="address"
               control={control}
               defaultValue=""
@@ -260,7 +288,7 @@ function OrderForm() {
           <div className={styles.formButtonContainer}>
             <div>
               <Text className={styles.formPrice}>Сумма: </Text>
-              <Text className={styles.formPrice}>рублей</Text>
+              <Text className={styles.formPrice}>€</Text>
             </div>
             <button className={styles.formButton} type="submit">Оформить заказ</button>
           </div>
@@ -277,7 +305,17 @@ function OrderForm() {
       </div>
       <div className={styles.formItemsWrapper}>
         <div className={styles.formWrapper}>
-          {isLoaded ? <Map /> : <h2>Loading...</h2>}
+          <PlacesAutocomplete isLoaded={isLoaded} onSelect={onPlaceSelect} />
+          <button type="button" onClick={toggleMode}>Выбор места на карте</button>
+          {isLoaded
+            ? (
+              <Map
+                center={center}
+                mode={mode}
+                markers={markers}
+                onMarkerAdd={onMarkerAdd}
+              />
+            ) : <h2>Loading...</h2>}
         </div>
       </div>
     </div>
