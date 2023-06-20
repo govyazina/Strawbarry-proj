@@ -26,14 +26,37 @@ export default function Bouquet() {
   const handleTopperChange = (value) => {
     setSelectedTopper(value);
   };
+
   const handleAddToCart = () => {
+    let topperPrice = 0;
+    let berriesPrice = 0;
+    if (selectedTopper !== 'none') {
+      topperPrice = 149;
+    }
+    if (selectedBerries === 'none') {
+      berriesPrice = 0;
+    } else if (selectedBerries === 'blueberry') {
+      berriesPrice = 200;
+    } else if (selectedBerries === 'raspberry') {
+      berriesPrice = 250;
+    } else if (selectedBerries === 'mix') {
+      berriesPrice = 400;
+    }
+
     const orderItem = {
-      id: product.sku,
+      id: 0,
+      sku: product.sku,
       berries: selectedBerries,
       topper: selectedTopper,
+      quantity: 1,
+      price: product.price + topperPrice + berriesPrice,
     };
     dispatch(addToCartAC(orderItem));
   };
+
+  if (!product) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className={styles.container}>
@@ -62,6 +85,11 @@ export default function Bouquet() {
                   {' '}
                   {product.sku}
                 </p>
+              </div>
+              <div>
+                {product.price}
+                {' '}
+                руб.
               </div>
               <div className="add_berries">
                 <p>Украсить ягодами</p>
@@ -129,19 +157,35 @@ export default function Bouquet() {
                 <p>
                   ягоды -
                   {' '}
-                  {product.description.product_details.berries}
-                  ,
+                  {product.description.product_details.berries.map((el, index) => (
+                    <React.Fragment key={el}>
+                      {el}
+                      {index !== product.description.product_details.berries.length - 1 ? ', ' : ''}
+                    </React.Fragment>
+                  ))}
                 </p>
-                <p>
-                  шоколад -
-                  {' '}
-                  {product.description.product_details.chocolate}
-                </p>
+
+                {product.description.product_details.chocolate[0] !== null && (
+                  <p>
+                    шоколад -
+                    {' '}
+                    {product.description.product_details.chocolate.map((el, index) => (
+                      <React.Fragment key={el}>
+                        {el}
+                        {index !== product.description.product_details.chocolate.length - 1 ? ', ' : ''}
+                      </React.Fragment>
+                    ))}
+                  </p>
+                )}
+
+                {product.description.product_details.topping !== null && (
                 <p>
                   топпинг -
                   {' '}
                   {product.description.product_details.topping}
                 </p>
+                )}
+
                 <p>Обращаем Ваше внимание, что при наличии в поставке ягод меньшего калибра количество ягод в букетах и наборах будет увеличено для соблюдения итогового веса и размера композиции.</p>
               </div>
             </Space>

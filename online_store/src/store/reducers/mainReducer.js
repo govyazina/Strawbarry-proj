@@ -18,7 +18,26 @@ function mainReducer(state = initialState, action = {}) {
       return { ...state, productListRequested: action.payload };
     }
     case mainTypes.ADD_TO_CART: {
-      return { ...state, cart: [...state.cart, action.payload] };
+      const { cart } = state;
+      const orderItem = action.payload;
+      let itemFound = false;
+      const updatedCart = cart.map((item) => {
+        if (item.sku === orderItem.sku
+          && item.berries === orderItem.berries
+          && item.topper === orderItem.topper
+        ) {
+          itemFound = true;
+          return { ...item, quantity: item.quantity + 1 };
+        }
+        return item;
+      });
+      if (!itemFound) {
+        const newItem = { ...orderItem, id: cart.length + 1 };
+        return { ...state, cart: [...updatedCart, newItem] };
+      }
+      console.log(updatedCart);
+
+      return { ...state, cart: updatedCart };
     }
     default: {
       return state;
