@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Card, Space, Button, Tooltip, Col, Row,
+  Card, Space, Button, Tooltip, Col, Row, Divider,
 } from 'antd';
 import { Link } from 'react-router-dom';
 import { CloseOutlined } from '@ant-design/icons';
@@ -64,6 +64,24 @@ export default function OrderList() {
           topping: null,
         },
       },
+      {
+        sku: '415593',
+        count: 1,
+        product_price: 1899,
+        product_details: {
+          berries: null,
+          topping: null,
+        },
+      },
+      {
+        sku: '41198',
+        count: 1,
+        product_price: 3199,
+        product_details: {
+          berries: null,
+          topping: null,
+        },
+      },
     ],
     data: {
       name: 'Симба Симбовский',
@@ -103,7 +121,7 @@ export default function OrderList() {
     return srcArr;
   }
 
-  if (!productList) {
+  if (!productList.length) {
     return <div>Loading...</div>;
   }
   return (
@@ -118,8 +136,8 @@ export default function OrderList() {
       {list.map((order) => (
         <Card
           title={(
-            <Link to="/main">
-              <p>
+            <Link to={`/orderdetails/${order.id}`}>
+              <p className={styles.orderTitle}>
                 Заказ №
                 {' '}
                 {order.id}
@@ -132,27 +150,29 @@ export default function OrderList() {
         )}
           key={order.id}
           extra={(
-            <Tooltip title="Удалить">
-              <Button shape="circle" icon={<CloseOutlined />} />
+            <Tooltip title="Удалить заказ">
+              <Button shape="circle" icon={<CloseOutlined />} id={styles.orderBtnDelete} />
             </Tooltip>
 )}
           className={styles.orderCard}
         >
           <Row>
             <Col span={12}>
-              <Space>
-                {photosOfBouquets(order).map((src) => (
+              <Space className={styles.orderImg}>
+                {photosOfBouquets(order).map((src, i) => (
+                  i < 3 && (
                   <div className={styles.smallImg} key={src}>
                     <img
-                      className={styles.smallImg}
+                      className={styles.smallImgItself}
                       src={src}
                       alt="Выбранный букет"
                     />
                   </div>
+                  )
                 ))}
               </Space>
             </Col>
-            <Col span={12}>
+            <Col span={12} className={styles.orderInfo}>
               <p>
                 Заказчик:
                 {' '}
@@ -171,7 +191,8 @@ export default function OrderList() {
             </Col>
           </Row>
           <Row>
-            <Col span={24}>
+            <Col span={24} className={styles.orderPrices}>
+              <Divider className={styles.orderDivider} />
               <p>
                 Количество букетов:
                 {' '}
@@ -185,7 +206,7 @@ export default function OrderList() {
                 {' '}
                 {order.price.total_price}
                 {' '}
-                €
+                руб.
               </p>
             </Col>
           </Row>

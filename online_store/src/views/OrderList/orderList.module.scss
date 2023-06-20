@@ -4,13 +4,41 @@
 }
 .orderCard {
     width: 70vw;
+    background-color: #ffc2c663;
+    color: #004f2b;
+}
+.orderTitle {
+    text-align: center;
+    color: #bf4e55;
+}
+#orderBtnDelete {
+    color: #004f2ba2;
+    background-color: #004f2b46;
+}
+#orderBtnDelete:hover {
+    color: #004f2b;
+    border: #004f2b solid 1px;
+}
+.orderImg {
+    display: flex;
+    justify-content: center;
 }
 .smallImg {
     height: 120px;
     width: 120px;
 }
-.smallImg img {
+.smallImgItself {
     object-fit: cover;
     width: 90%;
     height: 100%;
+}
+.orderDivider {
+background-color: #004f2b;
+height: 0.05rem;
+}
+.orderInfo {
+    text-align: right;
+}
+.orderPrices {
+    text-align: right;
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import Title from 'antd/es/typography/Title';
 import Paragraph from 'antd/es/typography/Paragraph';
-import { Link } from 'react-router-dom';
 import styles from './main.module.scss';
 import ProductFilter from '../ProductFilter/ProductFilter';
 import ProductList from '../ProductList/ProductList';
@@ -10,7 +9,6 @@ export default function Main() {
   return (
     <main className={styles.main}>
       <Title>Букеты из клубники</Title>
-      <Link to="/orderlist">bkbjkfd</Link>
       <ProductFilter />
       <ProductList />
       <Paragraph>
