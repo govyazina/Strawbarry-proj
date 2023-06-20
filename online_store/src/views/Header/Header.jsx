@@ -48,13 +48,13 @@ export default function Header() {
       </div>
       <Menu mode="horizontal" className={styles.header} activeClassName={styles.menu__active}>
       <NavLink to="/">
-        <Menu.Item key="home" className={styles.menu__item} activeClassName={styles.menu__active}>Главная</Menu.Item>
+        <Menu.Item key="home" id={styles.btn} className={styles.menu__item} activeClassName={styles.menu__active}>Главная</Menu.Item>
       </NavLink>
       <NavLink to="/about">
-        <Menu.Item key="about" className={styles.menu__item} activeClassName={styles.menu__active}>О нас</Menu.Item>
+        <Menu.Item key="about" id={styles.btn} className={styles.menu__item} activeClassName={styles.menu__active}>О нас</Menu.Item>
       </NavLink>
       <NavLink to="/orderlist">
-        <Menu.Item key="orderlist" className={styles.menu__item} activeClassName={styles.menu__active}>Заказы</Menu.Item>
+        <Menu.Item key="orderlist" id={styles.btn} className={styles.menu__item} activeClassName={styles.menu__active}>Заказы</Menu.Item>
       </NavLink>
       </Menu>
     </div>
