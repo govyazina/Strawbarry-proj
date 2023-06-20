@@ -1,10 +1,14 @@
 import { Button } from 'antd';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import ButtonGroup from 'antd/es/button/button-group';
 import { addToCartAC } from '../../store/actions/mainActions';
 
 export default function AddToCartBtn({ product }) {
   const dispatch = useDispatch();
+  const { cart } = useSelector((store) => store.mainStore);
+  const quantity = cart.filter((item) => item.sku === product.sku)
+    .reduce((acc, el) => acc + el.quantity, 0);
   const handleAddToCart = (event) => {
     event.stopPropagation();
     const orderItem = {
@@ -17,12 +21,21 @@ export default function AddToCartBtn({ product }) {
     };
     dispatch(addToCartAC(orderItem));
   };
-  return (
+  return quantity === 0 ? (
     <Button
       type="primary"
       onClick={handleAddToCart}
     >
       + в корзину
     </Button>
-  );
+  )
+    : (
+      <div>
+        <ButtonGroup>
+          <Button>-</Button>
+          <Button disabled>{quantity}</Button>
+          <Button onClick={handleAddToCart}>+</Button>
+        </ButtonGroup>
+      </div>
+    );
 }
