@@ -55,12 +55,6 @@
 .phone {
     margin-left: 1vw;
 }
-  
-.phone_number {
-    margin-top: 2.5vh;
-    margin-left: 5vw;
-    display: grid;
-}
 
 .logo {
     height: 13vh;
@@ -72,12 +66,13 @@
 .symbol {
     color: '#BF4E55';
     font-size: 0.7rem;
+    padding-top: 1.1em;
 }
 
 .envelope {
     color: '#BF4E55';
     font-size: 0.7rem;
-    margin-top: 2em;
+    margin-top: 2.3em;
 }
 
 .menu__item {
@@ -87,4 +82,17 @@
 
 .menu__active {
     background-color:  #BF4E55
+}
+
+.time {
+    width: 10vw;
+}
+
+#btn {
+    color: white;
+    background-color:  #BF4E55;
+}
+
+#btn:hover {
+    color: black;
 }
