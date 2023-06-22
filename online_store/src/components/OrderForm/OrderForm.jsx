@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable camelcase */
 import React, { useState, useCallback } from 'react';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { useForm, Controller } from 'react-hook-form';
 
@@ -22,6 +22,8 @@ import styles from './order-form.module.scss';
 
 import PlacesAutocomplete from './Auto';
 import { Map, MODES } from './Map';
+
+import useProductList from '../../hooks/useProductList';
 
 const { Text, Paragraph } = Typography;
 
@@ -43,6 +45,9 @@ function OrderForm() {
     id: 'google-map-script',
     googleMapsApiKey: API_KEY,
   });
+
+  const product = useProductList();
+  console.log(product[0]);
 
   const onPlaceSelect = useCallback(
     (coordinates) => {
@@ -66,9 +71,9 @@ function OrderForm() {
   };
 
   const { control, handleSubmit, reset } = useForm();
-  // const cart = useSelector((store) => store.mainStore.cart);
+  const { cart } = useSelector((store) => store.mainStore);
 
-  // console.log(cart);
+  console.log(cart);
 
   // const orderData = {
   //   products: [
@@ -102,7 +107,7 @@ function OrderForm() {
   //   },
   // };
 
-  const onSubmit = (dataA) => {
+  const onSubmit = (data) => {
     // const orderData = {
 
     // }
@@ -116,10 +121,69 @@ function OrderForm() {
     // } else {
     //   console.log('Error');
     // }
-    console.log(JSON.stringify(dataA));
+    console.log(JSON.stringify(data));
     setIsModalOpen(true);
     reset();
   };
+
+  const cartq = [
+    {
+      id: 1,
+      sku: 13543444444657,
+      berries: 'string',
+      topper: 'string',
+      quantity: 1,
+      price: 1,
+    },
+    {
+      id: 2,
+      sku: 16567,
+      berries: 'string',
+      topper: 'string',
+      quantity: 1,
+      price: 1,
+    },
+  ];
+
+  const order = cartq.reduce((acc, el) => {
+    const obj = {
+      sku: String(el.sku),
+      count: el.quantity,
+      product_price: el.price,
+      product_details: {
+        berries: el.berries,
+        topping: el.topper,
+      },
+    };
+    acc.push(obj);
+    return acc;
+  }, []);
+
+  const data = {
+    name: 'string',
+    phone: 'string',
+    email: 'string',
+    date: 'string',
+    time: 'string',
+    delivery: 'string',
+    address: 'string',
+    recipient_name: 'string',
+    recipient_phone: 'string',
+    postcard: 'string',
+    comment: 'string',
+  };
+
+  const orderData = {
+    products: order,
+    data,
+    price: {
+      order_price: 2,
+      delivery_price: 2,
+      total_price: 2,
+    },
+  };
+
+  console.log(orderData);
 
   const toggleMode = useCallback(() => {
     switch (mode) {
