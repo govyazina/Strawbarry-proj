@@ -19,6 +19,11 @@ export const addToCartAC = (data) => ({
   payload: data,
 });
 
+export const removeFromCartAC = (sku) => ({
+  type: mainTypes.REMOVE_FROM_CART,
+  payload: sku,
+});
+
 export const getProductListThunk = () => (dispatch) => {
   fetch('https://strawberry.nmsc.pchapl.dev/product')
     .then((data) => data.json())
