@@ -12,6 +12,16 @@ export default function ProductCard({ product }) {
   const navigate = useNavigate();
   const id = product.sku;
   const clickHandler = () => navigate(`/bouquet/${id}`);
+  const orderItem = {
+    id: 0,
+    sku: product.sku,
+    berries: 'none',
+    topper: 'none',
+    quantity: 1,
+    price: product.price,
+    itemsprice: 0,
+  };
+
   return (
     <Card
       onClick={clickHandler}
@@ -45,7 +55,7 @@ export default function ProductCard({ product }) {
               marginTop: '1rem',
             }}
           >
-            <AddToCartBtn product={product} />
+            <AddToCartBtn orderItem={orderItem} />
           </Space>
         </div>
       </Space>

@@ -6,27 +6,21 @@ import ButtonGroup from 'antd/es/button/button-group';
 import { addToCartAC, removeFromCartAC } from '../../store/actions/mainActions';
 import styles from './addtocartbtn.module.scss';
 
-export default function AddToCartBtn({ product }) {
+export default function AddToCartBtn({ orderItem }) {
   const dispatch = useDispatch();
   const { cart } = useSelector((store) => store.mainStore);
-  const quantity = cart.filter((item) => item.sku === product.sku)
+  const quantity = cart.filter((item) => item.sku === orderItem.sku)
     .reduce((acc, el) => acc + el.quantity, 0);
   const handleRemoveFromCart = (event) => {
     event.stopPropagation();
-    dispatch(removeFromCartAC(product.sku));
+    dispatch(removeFromCartAC(orderItem.sku));
   };
+
   const handleAddToCart = (event) => {
     event.stopPropagation();
-    const orderItem = {
-      id: 0,
-      sku: product.sku,
-      berries: 'none',
-      topper: 'none',
-      quantity: 1,
-      price: product.price,
-    };
     dispatch(addToCartAC(orderItem));
   };
+
   return quantity === 0 ? (
     <Button
       type="primary"
