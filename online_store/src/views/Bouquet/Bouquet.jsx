@@ -1,24 +1,26 @@
 /* eslint-disable max-len */
 import React, { useState } from 'react';
 import {
-  Select, Button, Space, Carousel, Col, Row,
+  Select, Space, Carousel, Col, Row,
 } from 'antd';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { HeartTwoTone, SmileTwoTone } from '@ant-design/icons';
 import useProductList from '../../hooks/useProductList';
 import styles from './bouquet.module.scss';
+import AddToCartBtn from '../../components/AddToCartBtn/AddToCartBtn';
 
-import { addToCartAC } from '../../store/actions/mainActions';
+// import { addToCartAC } from '../../store/actions/mainActions';
 
 export default function Bouquet() {
   const { id } = useParams();
   const product = useProductList(id);
-  const dispatch = useDispatch();
+  console.log(product);
+  // const dispatch = useDispatch();
 
   const [selectedBerries, setSelectedBerries] = useState('none');
   const [selectedTopper, setSelectedTopper] = useState('none');
-  const [size] = useState('large');
+  // const [size] = useState('large');
 
   const handleBerriesChange = (value) => {
     setSelectedBerries(value);
@@ -26,6 +28,7 @@ export default function Bouquet() {
   const handleTopperChange = (value) => {
     setSelectedTopper(value);
   };
+  let orderItem = {quantity: 1,};
 
   const handleAddToCart = () => {
     let topperPrice = 0;
@@ -43,15 +46,16 @@ export default function Bouquet() {
       berriesPrice = 400;
     }
 
-    const orderItem = {
+    orderItem = {
       id: 0,
       sku: product.sku,
       berries: selectedBerries,
       topper: selectedTopper,
       quantity: 1,
       price: product.price + topperPrice + berriesPrice,
+      itemsprice: 0,
     };
-    dispatch(addToCartAC(orderItem));
+    // dispatch(addToCartAC(orderItem));
   };
 
   if (!product) {
@@ -123,13 +127,14 @@ export default function Bouquet() {
                 />
               </div>
               <div className="button">
-                <Button
+              <AddToCartBtn orderItem={orderItem} onClick={handleAddToCart}/>
+                {/* <Button
                   type="primary"
                   size={size}
                   onClick={handleAddToCart}
                 >
                   В КОРЗИНУ
-                </Button>
+                </Button> */}
               </div>
               <div className="description">
                 <h4>{product.description.title}</h4>
