@@ -3,6 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ButtonGroup from 'antd/es/button/button-group';
 import { addToCartAC, removeFromCartAC } from '../../store/actions/mainActions';
+import styles from './addtocartbtn.module.scss';
 
 export default function AddToCartBtn({ product }) {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ export default function AddToCartBtn({ product }) {
     <Button
       type="primary"
       onClick={handleAddToCart}
+      id={styles.add_cart_btn}
     >
       + в корзину
     </Button>
@@ -36,9 +38,24 @@ export default function AddToCartBtn({ product }) {
     : (
       <div>
         <ButtonGroup>
-          <Button onClick={handleRemoveFromCart}>-</Button>
-          <Button disabled>{quantity}</Button>
-          <Button onClick={handleAddToCart}>+</Button>
+          <Button
+            onClick={handleRemoveFromCart}
+            id={styles.btn_group}
+          >
+            –
+          </Button>
+          <Button
+            disabled
+            id={styles.counter}
+          >
+            {quantity}
+          </Button>
+          <Button
+            onClick={handleAddToCart}
+            id={styles.btn_group}
+          >
+            +
+          </Button>
         </ButtonGroup>
       </div>
     );
