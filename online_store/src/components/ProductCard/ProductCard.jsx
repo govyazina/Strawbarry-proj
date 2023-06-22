@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Card, Space } from 'antd';
 import Meta from 'antd/es/card/Meta';

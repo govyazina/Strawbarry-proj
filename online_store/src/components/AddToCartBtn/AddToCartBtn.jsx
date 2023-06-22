@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Button } from 'antd';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Menu } from 'antd';
 import { NavLink } from 'react-router-dom';
-// eslint-disable-next-line import/no-extraneous-dependencies, no-unused-vars
 import { PhoneOutlined, MailOutlined } from '@ant-design/icons';
 import styles from './header.module.scss';
 import logo from '../../assets/images/logo.png';
