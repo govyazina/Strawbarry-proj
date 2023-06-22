@@ -23,8 +23,8 @@ function mainReducer(state = initialState, action = {}) {
       let itemFound = false;
       const updatedCart = cart.map((item) => {
         if (item.sku === orderItem.sku
-          && item.berries === orderItem.berries
-          && item.topper === orderItem.topper
+                    && item.berries === orderItem.berries
+                    && item.topper === orderItem.topper
         ) {
           itemFound = true;
           return { ...item, quantity: item.quantity + 1 };
@@ -35,8 +35,26 @@ function mainReducer(state = initialState, action = {}) {
         const newItem = { ...orderItem, id: cart.length + 1 };
         return { ...state, cart: [...updatedCart, newItem] };
       }
-      console.log(updatedCart);
 
+      return { ...state, cart: updatedCart };
+    }
+    case mainTypes.REMOVE_FROM_CART: {
+      const { cart } = state;
+      const skuFound = action.payload;
+      let itemFound = false;
+      const updatedCart = cart
+        .toReversed()
+        .map((item) => {
+          if (!itemFound && item.sku === skuFound) {
+            itemFound = true;
+            if (item.quantity > 0) {
+              return { ...item, quantity: item.quantity - 1 };
+            }
+          }
+          return item;
+        })
+        .reverse()
+        .filter((item) => item.quantity > 0);
       return { ...state, cart: updatedCart };
     }
     default: {

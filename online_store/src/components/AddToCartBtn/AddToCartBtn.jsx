@@ -2,13 +2,17 @@ import { Button } from 'antd';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ButtonGroup from 'antd/es/button/button-group';
-import { addToCartAC } from '../../store/actions/mainActions';
+import { addToCartAC, removeFromCartAC } from '../../store/actions/mainActions';
 
 export default function AddToCartBtn({ product }) {
   const dispatch = useDispatch();
   const { cart } = useSelector((store) => store.mainStore);
   const quantity = cart.filter((item) => item.sku === product.sku)
     .reduce((acc, el) => acc + el.quantity, 0);
+  const handleRemoveFromCart = (event) => {
+    event.stopPropagation();
+    dispatch(removeFromCartAC(product.sku));
+  };
   const handleAddToCart = (event) => {
     event.stopPropagation();
     const orderItem = {
@@ -32,7 +36,7 @@ export default function AddToCartBtn({ product }) {
     : (
       <div>
         <ButtonGroup>
-          <Button>-</Button>
+          <Button onClick={handleRemoveFromCart}>-</Button>
           <Button disabled>{quantity}</Button>
           <Button onClick={handleAddToCart}>+</Button>
         </ButtonGroup>
