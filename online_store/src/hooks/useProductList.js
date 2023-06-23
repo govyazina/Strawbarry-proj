@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getProductListThunk } from '../store/actions/mainActions';
 
-const useProductList = () => {
+const useProductList = (id) => {
   const { productListRequested, productList } = useSelector((store) => store.mainStore);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -12,7 +12,7 @@ const useProductList = () => {
       );
     }
   }, []);
-  return productList;
+  return id ? productList.find((product) => product.sku === +id) : productList;
 };
 
 export default useProductList;

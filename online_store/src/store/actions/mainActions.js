@@ -14,6 +14,11 @@ export const productListRequestedAC = () => ({
   payload: true,
 });
 
+export const addToCartAC = (data) => ({
+  type: mainTypes.ADD_TO_CART,
+  payload: data,
+});
+
 export const deleteCartAC = (data) => ({
   type: mainTypes.DELETE_CART,
   payload: data,
