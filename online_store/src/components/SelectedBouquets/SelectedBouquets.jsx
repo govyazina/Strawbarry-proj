@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import useProductList from '../../hooks/useProductList';
+// import useProductList from '../../hooks/useProductList';
 import styles from './selectedBouquets.module.scss';
 import OrderCart from '../../views/OrderCart/OrderCart';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 
 function SelectedBouquets() {
-  const orders = useProductList();
   const { cart } = useSelector((store) => store.mainStore);
+  const { totalPrice} = useSelector((store) => store.mainStore);
+  console.log(totalPrice)
  
   const products = cart.map(product =>{
    return <OrderCart product = {product} key = {product.id} />
@@ -34,7 +35,7 @@ function SelectedBouquets() {
       <div className={styles.table__footer}>
         <div className={styles.sum}>Сумма заказa </div>
         <div className={styles.summary}>
-          {/* {total} */}
+          {totalPrice}
            рублей</div>
       </div>
       

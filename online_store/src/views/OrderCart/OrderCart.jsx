@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './orderCart.module.scss';
 import { CloseOutlined, UpOutlined, DownOutlined } from '@ant-design/icons';
-import {deleteCartAC} from '../../store/actions/mainActions';
-import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+// import {deleteCartAC} from '../../store/actions/mainActions';
+// import { useDispatch } from 'react-redux';
+// import { useParams } from 'react-router-dom';
 import useProductList from '../../hooks/useProductList';
 
 
@@ -39,27 +39,17 @@ import useProductList from '../../hooks/useProductList';
     }
 
   const productData = useProductList(product.sku)
-  console.log(productData)
   
     // const {id} = useParams();
-    const dispatch = useDispatch();
-    const deleteCart = (id) => {
-        dispatch(deleteCartAC(id))
-        console.log('delete', id)
-    }
-
-   
-
-    
-    // const cartSummary = 0
-    // function getSummary () {
-    //   cartData.map( el => {
-    //     if (el.id===id) {
-    //       cartSummary = el.price + el.topping.price
-    //     }
-    //     return cartSummary
-    //   })
+    // const dispatch = useDispatch();
+    // const deleteCart = (id) => {
+    //     dispatch(deleteCartAC(id))
+    //     console.log('delete', id)
     // }
+
+    if (!productData) {
+      return <div>loading</div>
+      }
 
     return (
         <>
@@ -68,7 +58,9 @@ import useProductList from '../../hooks/useProductList';
           <div className={styles.cart__body}>
             <div className={styles.bouquetPic}>
               <img className={styles.cartPic} 
-              src={productData.photos[0]} alt='choicePic' 
+              src=''
+              // src={productData.photos[0]} 
+              alt='choicePic' 
               />
               <div className={styles.bouquetView}>
               <Link to={"/bouquet/${id}"} className={styles.link}>
@@ -100,7 +92,9 @@ import useProductList from '../../hooks/useProductList';
           </div>
           <div className='price'>{sum}</div>
           <div className='delete'>
-            <CloseOutlined onClick={() => deleteCart(id)}/>
+            <CloseOutlined
+            // onClick={() => deleteCart(id)}/
+            />
           </div>      
        </section>
       </>
