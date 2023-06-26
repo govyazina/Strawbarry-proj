@@ -8,9 +8,6 @@ const initialState = {
 
 function mainReducer(state = initialState, action = {}) {
   switch (action.type) {
-    case mainTypes.DO_SOMETHING: {
-      return { ...state, something: action.payload };
-    }
     case mainTypes.WRITE_PRODUCT_LIST: {
       return { ...state, productList: action.payload };
     }
@@ -23,20 +20,42 @@ function mainReducer(state = initialState, action = {}) {
       let itemFound = false;
       const updatedCart = cart.map((item) => {
         if (item.sku === orderItem.sku
-          && item.berries === orderItem.berries
-          && item.topper === orderItem.topper
+                    && item.berries === orderItem.berries
+                    && item.topper === orderItem.topper
         ) {
           itemFound = true;
-          return { ...item, quantity: item.quantity + 1 };
+          return { ...item, quantity: item.quantity + 1, itemsprice: item.price * (item.quantity + 1)};
         }
         return item;
       });
       if (!itemFound) {
-        const newItem = { ...orderItem, id: cart.length + 1 };
+        let id = 0;
+        if (cart.length > 0) {
+          id = cart[cart.length - 1].id +1;
+        }
+        const newItem = { ...orderItem, id: id };
         return { ...state, cart: [...updatedCart, newItem] };
       }
-      console.log(updatedCart);
 
+      return { ...state, cart: updatedCart };
+    }
+    case mainTypes.REMOVE_FROM_CART: {
+      const { cart } = state;
+      const skuFound = action.payload;
+      let itemFound = false;
+      const updatedCart = cart
+        .toReversed()
+        .map((item) => {
+          if (!itemFound && item.sku === skuFound) {
+            itemFound = true;
+            if (item.quantity > 0) {
+              return { ...item, quantity: item.quantity - 1, itemsprice: item.price * (item.quantity - 1) };
+            }
+          }
+          return item;
+        })
+        .reverse()
+        .filter((item) => item.quantity > 0);
       return { ...state, cart: updatedCart };
     }
     default: {
