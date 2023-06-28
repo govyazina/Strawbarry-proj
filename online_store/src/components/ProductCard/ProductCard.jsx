@@ -19,7 +19,7 @@ export default function ProductCard({ product }) {
     topper: 'none',
     quantity: 1,
     price: product.price,
-    itemsprice: 0,
+    itemsprice: product.price,
   };
 
   return (
