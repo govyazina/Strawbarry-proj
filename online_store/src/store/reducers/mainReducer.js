@@ -5,12 +5,17 @@ const initialState = {
   productList: [],
   productListRequested: false,
   totalCart: 0,
+  filters: {
+    minPrice: 0,
+    maxPrice: Infinity,
+    size: null,
+    type: null,
+    chocolate: null,
+  },
 };
 
 function cartSum(cart) {
-  return cart.reduce((acc, {itemsprice}) => {
-    return acc + itemsprice}, 0)
-
+  return cart.reduce((acc, { itemsprice }) => acc + itemsprice, 0);
 }
 
 function mainReducer(state = initialState, action = {}) {
@@ -31,18 +36,23 @@ function mainReducer(state = initialState, action = {}) {
                     && item.topper === orderItem.topper
         ) {
           itemFound = true;
-          return { ...item, quantity: item.quantity + 1, itemsprice: item.price * (item.quantity + 1)};
+          return {
+            ...item,
+            quantity: item.quantity + 1,
+            itemsprice: item.price * (item.quantity + 1),
+          };
         }
         return item;
       });
       if (!itemFound) {
         let id = 0;
         if (cart.length > 0) {
-          id = cart[cart.length - 1].id +1;
+          id = cart[cart.length - 1].id + 1;
         }
-        const newItem = { ...orderItem, id: id };
-        updatedCart = [...updatedCart, newItem] ;
+        const newItem = { ...orderItem, id };
+        updatedCart = [...updatedCart, newItem];
       }
+
       return { ...state, cart: updatedCart, totalCart: cartSum(updatedCart) };
     }
     case mainTypes.REMOVE_FROM_CART: {
@@ -55,7 +65,11 @@ function mainReducer(state = initialState, action = {}) {
           if (!itemFound && item.sku === skuFound) {
             itemFound = true;
             if (item.quantity > 0) {
-              return { ...item, quantity: item.quantity - 1, itemsprice: item.price * (item.quantity - 1) };
+              return {
+                ...item,
+                quantity: item.quantity - 1,
+                itemsprice: item.price * (item.quantity - 1),
+              };
             }
           }
           return item;
@@ -73,8 +87,8 @@ function mainReducer(state = initialState, action = {}) {
     //       return acc + itemsprice
     //     }, 0) }
     //   }})
-    //   return { ...state, cart: updatedCart };
-    // }  
+    //  return {...state, cart: updatedCart};
+    // }
     default: {
       return state;
     }
