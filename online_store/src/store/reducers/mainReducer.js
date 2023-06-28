@@ -5,6 +5,13 @@ const initialState = {
   productList: [],
   productListRequested: false,
   totalCart: 0,
+    filters: {
+        minPrice: 0,
+        maxPrice: Infinity,
+        size: null,
+        type: null,
+        chocolate: null
+    }
 };
 
 function cartSum(cart) {
@@ -14,55 +21,55 @@ function cartSum(cart) {
 }
 
 function mainReducer(state = initialState, action = {}) {
-  switch (action.type) {
-    case mainTypes.WRITE_PRODUCT_LIST: {
-      return { ...state, productList: action.payload };
-    }
-    case mainTypes.PRODUCT_LIST_REQUESTED: {
-      return { ...state, productListRequested: action.payload };
-    }
-    case mainTypes.ADD_TO_CART: {
-      const { cart } = state;
-      const orderItem = action.payload;
-      let itemFound = false;
-      let updatedCart = cart.map((item) => {
-        if (item.sku === orderItem.sku
+    switch (action.type) {
+        case mainTypes.WRITE_PRODUCT_LIST: {
+            return {...state, productList: action.payload};
+        }
+        case mainTypes.PRODUCT_LIST_REQUESTED: {
+            return {...state, productListRequested: action.payload};
+        }
+        case mainTypes.ADD_TO_CART: {
+            const {cart} = state;
+            const orderItem = action.payload;
+            let itemFound = false;
+            let updatedCart = cart.map((item) => {
+                if (item.sku === orderItem.sku
                     && item.berries === orderItem.berries
                     && item.topper === orderItem.topper
-        ) {
-          itemFound = true;
-          return { ...item, quantity: item.quantity + 1, itemsprice: item.price * (item.quantity + 1)};
-        }
-        return item;
-      });
-      if (!itemFound) {
-        let id = 0;
-        if (cart.length > 0) {
-          id = cart[cart.length - 1].id +1;
-        }
-        const newItem = { ...orderItem, id: id };
-        updatedCart = [...updatedCart, newItem] ;
-      }
-      return { ...state, cart: updatedCart, totalCart: cartSum(updatedCart) };
-    }
-    case mainTypes.REMOVE_FROM_CART: {
-      const { cart } = state;
-      const skuFound = action.payload;
-      let itemFound = false;
-      const updatedCart = cart
-        .toReversed()
-        .map((item) => {
-          if (!itemFound && item.sku === skuFound) {
-            itemFound = true;
-            if (item.quantity > 0) {
-              return { ...item, quantity: item.quantity - 1, itemsprice: item.price * (item.quantity - 1) };
+                ) {
+                    itemFound = true;
+                    return {...item, quantity: item.quantity + 1, itemsprice: item.price * (item.quantity + 1)};
+                }
+                return item;
+            });
+            if (!itemFound) {
+                let id = 0;
+                if (cart.length > 0) {
+                    id = cart[cart.length - 1].id + 1;
+                }
+                const newItem = {...orderItem, id: id};
+                updatedCart = [...updatedCart, newItem];
             }
-          }
-          return item;
-        })
-        .reverse()
-        .filter((item) => item.quantity > 0);
-      return { ...state, cart: updatedCart, totalCart: cartSum(updatedCart) };
+
+            return {...state, cart: updatedCart, totalCart: cartSum(updatedCart)};
+        }
+        case mainTypes.REMOVE_FROM_CART: {
+            const {cart} = state;
+            const skuFound = action.payload;
+            let itemFound = false;
+            const updatedCart = cart
+                .toReversed()
+                .map((item) => {
+                    if (!itemFound && item.sku === skuFound) {
+                        itemFound = true;
+                        if (item.quantity > 0) {
+                            return {...item, quantity: item.quantity - 1, itemsprice: item.price * (item.quantity - 1)};
+                        }
+                    }
+                    return item;
+                })
+                .reverse()
+                .filter((item) => item.quantity > 0);return { ...state, cart: updatedCart, totalCart: cartSum(updatedCart) };
     }
     // case mainTypes.COUNT_CART: {
     //   const { cart } = state;
@@ -73,12 +80,12 @@ function mainReducer(state = initialState, action = {}) {
     //       return acc + itemsprice
     //     }, 0) }
     //   }})
-    //   return { ...state, cart: updatedCart };
-    // }  
-    default: {
-      return state;
+          //  return {...state, cart: updatedCart};
+        //}
+        default: {
+            return state;
+        }
     }
-  }
 }
 
 export default mainReducer;
