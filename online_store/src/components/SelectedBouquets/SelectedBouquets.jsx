@@ -7,8 +7,8 @@ import OrderCart from '../../views/OrderCart/OrderCart';
 
 function SelectedBouquets() {
   const { cart } = useSelector((store) => store.mainStore);
-  const { totalPrice} = useSelector((store) => store.mainStore);
-  console.log(totalPrice)
+  const { totalCart} = useSelector((store) => store.mainStore);
+  console.log(totalCart)
  
   const products = cart.map(product =>{
    return <OrderCart product = {product} key = {product.id} />
@@ -35,7 +35,7 @@ function SelectedBouquets() {
       <div className={styles.table__footer}>
         <div className={styles.sum}>Сумма заказa </div>
         <div className={styles.summary}>
-          {totalPrice}
+          {totalCart}
            рублей</div>
       </div>
       

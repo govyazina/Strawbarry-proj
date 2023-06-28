@@ -15,7 +15,12 @@ import useProductList from '../../hooks/useProductList';
 
     const [count, setCount] = useState(quantity)
     const [sum, setSum] = useState(price*count)
-    
+
+    // const dispatch = useDispatch();    
+ 
+    // const increase = () => {
+    //   dispatch(countCartAC(orderItem));
+    // };
 
     const increase = (id) => {
       if (product.id === id) {
@@ -39,6 +44,7 @@ import useProductList from '../../hooks/useProductList';
     }
 
   const productData = useProductList(product.sku)
+  console.log(productData, product)
   
     // const {id} = useParams();
     // const dispatch = useDispatch();
@@ -58,12 +64,12 @@ import useProductList from '../../hooks/useProductList';
           <div className={styles.cart__body}>
             <div className={styles.bouquetPic}>
               <img className={styles.cartPic} 
-              src=''
-              // src={productData.photos[0]} 
+              // src=''
+              src={productData.photos[0]} 
               alt='choicePic' 
               />
               <div className={styles.bouquetView}>
-              <Link to={"/bouquet/${id}"} className={styles.link}>
+              <Link to={`/bouquet/${product.sku}`} className={styles.link}>
                 {productData.name_title}
               </Link>
               <p className={styles.addings}>

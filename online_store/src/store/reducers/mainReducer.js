@@ -7,6 +7,12 @@ const initialState = {
   totalCart: 0,
 };
 
+function cartSum(cart) {
+  return cart.reduce((acc, {itemsprice}) => {
+    return acc + itemsprice}, 0)
+
+}
+
 function mainReducer(state = initialState, action = {}) {
   switch (action.type) {
     case mainTypes.WRITE_PRODUCT_LIST: {
@@ -19,7 +25,7 @@ function mainReducer(state = initialState, action = {}) {
       const { cart } = state;
       const orderItem = action.payload;
       let itemFound = false;
-      const updatedCart = cart.map((item) => {
+      let updatedCart = cart.map((item) => {
         if (item.sku === orderItem.sku
                     && item.berries === orderItem.berries
                     && item.topper === orderItem.topper
@@ -35,10 +41,9 @@ function mainReducer(state = initialState, action = {}) {
           id = cart[cart.length - 1].id +1;
         }
         const newItem = { ...orderItem, id: id };
-        return { ...state, cart: [...updatedCart, newItem] };
+        updatedCart = [...updatedCart, newItem] ;
       }
-
-      return { ...state, cart: updatedCart };
+      return { ...state, cart: updatedCart, totalCart: cartSum(updatedCart) };
     }
     case mainTypes.REMOVE_FROM_CART: {
       const { cart } = state;
@@ -57,52 +62,23 @@ function mainReducer(state = initialState, action = {}) {
         })
         .reverse()
         .filter((item) => item.quantity > 0);
-      return { ...state, cart: updatedCart, newItem };
+      return { ...state, cart: updatedCart, totalCart: cartSum(updatedCart) };
     }
-    case mainTypes.COUNT_CART: {
-      const { cart } = state;
-      const orderItem = action.payload;
-      let itemFound = false;
-      const updatedCart = cart.map((item) => {
-        if (item.sku === orderItem.sku
-                    && item.berries === orderItem.berries
-                    && item.topper === orderItem.topper
-        ) {
-          itemFound = true;
-          return { ...item, quantity: item.quantity + 1, itemsprice: item.price * (item.quantity + 1), totalCart: cart.reduce((prev, curr) => {
-                return prev + curr.itemsprice
-              }, 0)};
-        }
-        return item;
-      });
-      if (!itemFound) {
-        let id = 0;
-        if (cart.length > 0) {
-          id = cart[cart.length - 1].id +1;
-        }
-        const newItem = { ...orderItem, id: id };
-        return { ...state, cart: [...updatedCart, newItem] };
-      }
-
-      return { ...state, cart: updatedCart };
-    }
+    // case mainTypes.COUNT_CART: {
+    //   const { cart } = state;
+    //   const orderItem = action.payload;
+    //   const updatedCart = cart.map((id) => {
+    //     if (orderItem.id === id) {
+    //     return { ...state, totalCard: cart.reduce((acc, itemsprice) => {
+    //       return acc + itemsprice
+    //     }, 0) }
+    //   }})
+    //   return { ...state, cart: updatedCart };
+    // }  
     default: {
       return state;
     }
   }
-
-
-// function deleteCartReducer(state = initialState, action) {
-//   switch (action.type) {
-//     case mainTypes.DELETE_CART: {
-//       return { ...state, productList: state.productList.filter(el => el.id !==
-//         action.payload)}
-//     }
-//     default: {
-//       return state;
-//     }
-//   }
-// }
 }
 
 export default mainReducer;

@@ -28,7 +28,15 @@ export default function Bouquet() {
   const handleTopperChange = (value) => {
     setSelectedTopper(value);
   };
-  let orderItem = {quantity: 1,};
+  let orderItem = {
+    // id: 0,
+    // sku: product.sku,
+    // berries: 'none',
+    // topper: 'none',
+    quantity: 1,
+    // price: product.price,
+    // itemsprice: product.price,
+  };
 
   const handleAddToCart = () => {
     let topperPrice = 0;
@@ -53,7 +61,7 @@ export default function Bouquet() {
       topper: selectedTopper,
       quantity: 1,
       price: product.price + topperPrice + berriesPrice,
-      itemsprice: 0,
+      itemsprice: product.price + topperPrice + berriesPrice,
     };
     // dispatch(addToCartAC(orderItem));
   };
@@ -61,6 +69,8 @@ export default function Bouquet() {
   if (!product) {
     return <div>Loading...</div>;
   }
+
+  handleAddToCart()
 
   return (
     <div className={styles.container}>
