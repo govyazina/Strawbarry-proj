@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useCallback } from 'react';
 import { GoogleMap, Marker } from '@react-google-maps/api';
 

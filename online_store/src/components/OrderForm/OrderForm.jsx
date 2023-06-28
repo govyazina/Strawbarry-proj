@@ -1,9 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable camelcase */
 import React, { useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { useForm, Controller } from 'react-hook-form';
 
 import {
@@ -16,7 +14,6 @@ import {
   Modal,
 } from 'antd';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { useJsApiLoader } from '@react-google-maps/api';
 import styles from './order-form.module.scss';
 

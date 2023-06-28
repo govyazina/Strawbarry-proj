@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable react/prop-types */
 /* eslint-disable camelcase */
 import React, { useEffect } from 'react';
 import usePlacesAutocomplete, {
