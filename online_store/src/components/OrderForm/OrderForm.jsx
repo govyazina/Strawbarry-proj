@@ -31,8 +31,6 @@ const defaultCenter = {
   lng: 33.09065538465354,
 };
 
-// const libraries = ['places'];
-
 function OrderForm() {
   const [center, setCenter] = useState(defaultCenter);
   const [mode, setMode] = useState(MODES.MOVE);
@@ -49,10 +47,6 @@ function OrderForm() {
   const onPlaceSelect = useCallback(
     (coordinates) => {
       setCenter(coordinates);
-      // if (MODES.SET_MARKERS) {
-      //   const [pos] = toAuto;
-      //   setCenter(pos);
-      // }
     },
     [],
   );
@@ -69,118 +63,58 @@ function OrderForm() {
 
   const { control, handleSubmit, reset } = useForm();
   const { cart } = useSelector((store) => store.mainStore);
+  const { totalCart } = useSelector((store) => store.mainStore);
 
-  console.log(cart);
+  let deliveryPrice = 0;
 
-  // const orderData = {
-  //   products: [
-  //     {
-  //       sku: 'string',
-  //       count: 2,
-  //       product_price: 2,
-  //       product_details: {
-  //         berries: 'string',
-  //         topping: 'string',
-  //       },
-  //     },
-  //   ],
-  //   data: {
-  //     name: 'string',
-  //     phone: 'string',
-  //     email: 'string',
-  //     date: 'string',
-  //     time: 'string',
-  //     delivery: 'string',
-  //     address: 'string',
-  //     'recipient-name': 'string',
-  //     'recipient-phone': 'string',
-  //     postcard: 'string',
-  //     comment: 'string',
-  //   },
-  //   price: {
-  //     order_price: 2,
-  //     delivery_price: 2,
-  //     total_price: 2,
-  //   },
-  // };
+  if (radio === 'yes') {
+    deliveryPrice = 500;
+  } else {
+    deliveryPrice = 0;
+  }
+
+  const totalPrice = totalCart + deliveryPrice;
 
   const onSubmit = (data) => {
-    // const orderData = {
+    const order = cart.reduce((acc, el) => {
+      const obj = {
+        sku: String(el.sku),
+        count: el.quantity,
+        product_price: el.price,
+        product_details: {
+          berries: el.berries,
+          topping: el.topper,
+        },
+      };
+      acc.push(obj);
+      return acc;
+    }, []);
 
-    // }
+    const orderData = {
+      products: order,
+      data,
+      price: {
+        order_price: totalCart,
+        delivery_price: deliveryPrice,
+        total_price: totalPrice,
+      },
+    };
+
+    console.log(`Данные на сервер: ${JSON.stringify(orderData)}`);
 
     // const res = await fetch('https://strawberry.nmsc.pchapl.dev/order', {
     //   method: 'POST',
-    //   body: JSON.stringify(data),
+    //   body: JSON.stringify(orderData),
     // });
     // if (res.status === 200) {
-    //   // вызвать модалку
+    //   // setIsModalOpen(true);
     // } else {
     //   console.log('Error');
     // }
-    console.log(JSON.stringify(data));
     setIsModalOpen(true);
     reset();
+    setRadio('no');
   };
-
-  const cartq = [
-    {
-      id: 1,
-      sku: 13543444444657,
-      berries: 'string',
-      topper: 'string',
-      quantity: 1,
-      price: 1,
-    },
-    {
-      id: 2,
-      sku: 16567,
-      berries: 'string',
-      topper: 'string',
-      quantity: 1,
-      price: 1,
-    },
-  ];
-
-  const order = cartq.reduce((acc, el) => {
-    const obj = {
-      sku: String(el.sku),
-      count: el.quantity,
-      product_price: el.price,
-      product_details: {
-        berries: el.berries,
-        topping: el.topper,
-      },
-    };
-    acc.push(obj);
-    return acc;
-  }, []);
-
-  const data = {
-    name: 'string',
-    phone: 'string',
-    email: 'string',
-    date: 'string',
-    time: 'string',
-    delivery: 'string',
-    address: 'string',
-    recipient_name: 'string',
-    recipient_phone: 'string',
-    postcard: 'string',
-    comment: 'string',
-  };
-
-  const orderData = {
-    products: order,
-    data,
-    price: {
-      order_price: 2,
-      delivery_price: 2,
-      total_price: 2,
-    },
-  };
-
-  console.log(orderData);
 
   const toggleMode = useCallback(() => {
     switch (mode) {
@@ -349,7 +283,11 @@ function OrderForm() {
           <div className={styles.formButtonContainer}>
             <div>
               <Text className={styles.formPrice}>Сумма: </Text>
-              <Text className={styles.formPrice}>€</Text>
+              <Text className={styles.formPrice}>
+                {totalPrice}
+                {' '}
+                €
+              </Text>
             </div>
             <button className={styles.formButton} type="submit">Оформить заказ</button>
           </div>
