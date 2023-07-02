@@ -6,12 +6,15 @@ import useProductList from '../../hooks/useProductList';
 
 export default function ProductList() {
   const productList = useProductList();
-  const { filters: { minPrice, maxPrice } } = useSelector((store) => store.mainStore);
+  const { filters: { minPrice, maxPrice, size } } = useSelector((store) => store.mainStore);
   const filter = (product) => {
-    if (product.price >= minPrice && product.price <= maxPrice) {
-      return true;
+    if (product.price < minPrice || product.price > maxPrice) {
+      return false;
     }
-    return false;
+    if (size.length && !size.includes(product.size)) {
+      return false;
+    }
+    return true;
   };
   return (
     <Row gutter={[16, 16]}>
