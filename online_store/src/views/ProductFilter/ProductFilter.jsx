@@ -8,7 +8,7 @@ export default function ProductFilter() {
   const productsList = useProductList();
   const maximumPrice = Math.max(...productsList.map((item) => item.price));
   const dispatch = useDispatch();
-  const options = [
+  const sizeOptions = [
     {
       label: 'S',
       value: 'S',
@@ -22,11 +22,28 @@ export default function ProductFilter() {
       value: 'L',
     },
   ];
+  const typeOptions = [
+    {
+      label: 'Букеты',
+      value: 'bouquet',
+    },
+    {
+      label: 'Коробки',
+      value: 'box',
+    },
+    {
+      label: 'Корзины',
+      value: 'basket',
+    },
+  ];
   const handlePriceChange = ([minPrice, maxPrice]) => {
     dispatch(setFilterAC({ minPrice, maxPrice }));
   };
-  const handleChange = (value) => {
+  const handleSizeChange = (value) => {
     dispatch(setFilterAC({ size: value }));
+  };
+  const handleTypeChange = (value) => {
+    dispatch(setFilterAC({ type: value }));
   };
   return (
     <div>
@@ -52,8 +69,19 @@ export default function ProductFilter() {
           width: '100%',
         }}
         placeholder="Please select"
-        onChange={handleChange}
-        options={options}
+        onChange={handleSizeChange}
+        options={sizeOptions}
+      />
+      <h5>тип:</h5>
+      <Select
+        mode="multiple"
+        allowClear
+        style={{
+          width: '100%',
+        }}
+        placeholder="Please select"
+        onChange={handleTypeChange}
+        options={typeOptions}
       />
     </div>
   );

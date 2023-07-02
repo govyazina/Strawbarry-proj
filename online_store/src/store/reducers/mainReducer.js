@@ -8,8 +8,8 @@ const initialState = {
   filters: {
     minPrice: 0,
     maxPrice: Infinity,
-    size: null,
-    type: null,
+    size: [],
+    type: [],
     chocolate: null,
   },
 };
