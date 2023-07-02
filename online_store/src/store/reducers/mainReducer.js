@@ -78,6 +78,11 @@ function mainReducer(state = initialState, action = {}) {
         .filter((item) => item.quantity > 0);
       return { ...state, cart: updatedCart, totalCart: cartSum(updatedCart) };
     }
+    case mainTypes.SET_FILTER: {
+      const { filters } = state;
+      const newFilters = action.payload;
+      return { ...state, filters: { ...filters, ...newFilters } };
+    }
     // case mainTypes.COUNT_CART: {
     //   const { cart } = state;
     //   const orderItem = action.payload;
