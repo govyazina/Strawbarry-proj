@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select, Slider } from 'antd';
+import { Checkbox, Select, Slider } from 'antd';
 import { useDispatch } from 'react-redux';
 import useProductList from '../../hooks/useProductList';
 import { setFilterAC } from '../../store/actions/mainActions';
@@ -36,6 +36,28 @@ export default function ProductFilter() {
       value: 'basket',
     },
   ];
+  const chocoOptions = [
+    {
+      label: 'без шоколада',
+      value: 'null',
+    },
+    {
+      label: 'молочный',
+      value: 'молочный',
+    },
+    {
+      label: 'белый',
+      value: 'белый',
+    },
+    {
+      label: 'розовый',
+      value: 'розовый',
+    },
+    {
+      label: 'тёмный',
+      value: 'тёмный',
+    },
+  ];
   const handlePriceChange = ([minPrice, maxPrice]) => {
     dispatch(setFilterAC({ minPrice, maxPrice }));
   };
@@ -44,6 +66,9 @@ export default function ProductFilter() {
   };
   const handleTypeChange = (value) => {
     dispatch(setFilterAC({ type: value }));
+  };
+  const handleChocoChanged = (value) => {
+    dispatch(setFilterAC({ chocolate: value }));
   };
   return (
     <div>
@@ -83,6 +108,8 @@ export default function ProductFilter() {
         onChange={handleTypeChange}
         options={typeOptions}
       />
+      <h5>шоколад:</h5>
+      <Checkbox.Group options={chocoOptions} onChange={handleChocoChanged} />
     </div>
   );
 }

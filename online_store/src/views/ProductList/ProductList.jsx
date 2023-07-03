@@ -8,7 +8,7 @@ export default function ProductList() {
   const productList = useProductList();
   const {
     filters: {
-      minPrice, maxPrice, size, type,
+      minPrice, maxPrice, size, type, chocolate,
     },
   } = useSelector((store) => store.mainStore);
   const filter = (product) => {
@@ -20,6 +20,13 @@ export default function ProductList() {
     }
     if (type.length && !type.includes(product.type)) {
       return false;
+    }
+    if (chocolate.length) {
+      const findChoco = product.description.product_details.chocolate
+        .some((choco) => chocolate.includes(choco === null ? 'null' : choco));
+      if (!findChoco) {
+        return false;
+      }
     }
     return true;
   };

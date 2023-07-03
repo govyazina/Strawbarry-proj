@@ -10,7 +10,7 @@ const initialState = {
     maxPrice: Infinity,
     size: [],
     type: [],
-    chocolate: null,
+    chocolate: [],
   },
 };
 
