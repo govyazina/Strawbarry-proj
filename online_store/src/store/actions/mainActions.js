@@ -14,6 +14,15 @@ export const productListRequestedAC = () => ({
   payload: true,
 });
 
+export const writeOrderListAC = (data) => ({
+  type: mainTypes.WRITE_ORDER_LIST,
+  payload: data,
+});
+export const orderListRequestedAC = () => ({
+  type: mainTypes.ORDER_LIST_REQUESTED,
+  payload: true,
+});
+
 export const addToCartAC = (data) => ({
   type: mainTypes.ADD_TO_CART,
   payload: data,
@@ -38,6 +47,7 @@ export const setFilterAC = (data) => ({
   type: mainTypes.SET_FILTER,
   payload: data,
 });
+
 export const getProductListThunk = () => (dispatch) => {
   fetch('https://strawberry.nmsc.pchapl.dev/product')
     .then((data) => data.json())
@@ -48,5 +58,18 @@ export const getProductListThunk = () => (dispatch) => {
     });
   dispatch(
     productListRequestedAC(),
+  );
+};
+
+export const getOrderListThunk = () => (dispatch) => {
+  fetch('https://strawberry.nmsc.pchapl.dev/order')
+    .then((data) => data.json())
+    .then((result) => {
+      dispatch(
+        writeOrderListAC(result),
+      );
+    });
+  dispatch(
+    orderListRequestedAC(),
   );
 };
