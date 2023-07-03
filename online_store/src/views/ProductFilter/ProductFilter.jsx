@@ -1,6 +1,9 @@
 import React from 'react';
-import { Checkbox, Select, Slider } from 'antd';
+import {
+  Checkbox, Col, Row, Select, Slider,
+} from 'antd';
 import { useDispatch } from 'react-redux';
+import styles from './productfilter.module.scss';
 import useProductList from '../../hooks/useProductList';
 import { setFilterAC } from '../../store/actions/mainActions';
 
@@ -71,45 +74,52 @@ export default function ProductFilter() {
     dispatch(setFilterAC({ chocolate: value }));
   };
   return (
-    <div>
-      <h5>цена:</h5>
-      {maximumPrice > 0
-                && (
-                <Slider
-                  range
-                  tooltip={{
-                    open: true,
-                  }}
-                  min={0}
-                  max={maximumPrice}
-                  defaultValue={[0, maximumPrice]}
-                  onAfterChange={handlePriceChange}
-                />
-                )}
-      <h5>размер:</h5>
-      <Select
-        mode="multiple"
-        allowClear
-        style={{
-          width: '100%',
-        }}
-        placeholder="Please select"
-        onChange={handleSizeChange}
-        options={sizeOptions}
-      />
-      <h5>тип:</h5>
-      <Select
-        mode="multiple"
-        allowClear
-        style={{
-          width: '100%',
-        }}
-        placeholder="Please select"
-        onChange={handleTypeChange}
-        options={typeOptions}
-      />
-      <h5>шоколад:</h5>
-      <Checkbox.Group options={chocoOptions} onChange={handleChocoChanged} />
+    <div className={styles.text}>
+      <Row gutter={32}>
+        <Col span={6}>
+          <h5>цена:</h5>
+          {maximumPrice > 0
+                        && (
+                        <Slider
+                          range
+                          min={0}
+                          max={maximumPrice}
+                          defaultValue={[0, maximumPrice]}
+                          onAfterChange={handlePriceChange}
+                        />
+                        )}
+        </Col>
+        <Col span={6}>
+          <h5>размер:</h5>
+          <Select
+            mode="multiple"
+            allowClear
+            style={{
+              width: '100%',
+            }}
+            placeholder="Please select"
+            onChange={handleSizeChange}
+            options={sizeOptions}
+          />
+        </Col>
+        <Col span={6}>
+          <h5>тип:</h5>
+          <Select
+            mode="multiple"
+            allowClear
+            style={{
+              width: '100%',
+            }}
+            placeholder="Please select"
+            onChange={handleTypeChange}
+            options={typeOptions}
+          />
+        </Col>
+        <Col span={6}>
+          <h5>шоколад:</h5>
+          <Checkbox.Group options={chocoOptions} onChange={handleChocoChanged} />
+        </Col>
+      </Row>
     </div>
   );
 }
