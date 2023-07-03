@@ -34,6 +34,10 @@ export const countCartAC = (data) => ({
   payload: data,
 });
 
+export const setFilterAC = (data) => ({
+  type: mainTypes.SET_FILTER,
+  payload: data,
+});
 export const getProductListThunk = () => (dispatch) => {
   fetch('https://strawberry.nmsc.pchapl.dev/product')
     .then((data) => data.json())
