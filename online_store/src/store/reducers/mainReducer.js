@@ -63,6 +63,22 @@ function mainReducer(state = initialState, action = {}) {
 
       return { ...state, cart: updatedCart, totalCart: cartSum(updatedCart) };
     }
+    case mainTypes.EMPTY_THE_CART: {
+      return {
+        ...state,
+        cart: [],
+        productList: [],
+        productListRequested: false,
+        totalCart: 0,
+        filters: {
+          minPrice: 0,
+          maxPrice: Infinity,
+          size: [],
+          type: [],
+          chocolate: [],
+        },
+      };
+    }
     case mainTypes.REMOVE_FROM_CART: {
       const { cart } = state;
       const skuFound = action.payload;

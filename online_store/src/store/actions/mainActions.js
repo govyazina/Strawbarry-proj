@@ -28,6 +28,11 @@ export const addToCartAC = (data) => ({
   payload: data,
 });
 
+export const emptyTheCartAC = () => ({
+  type: mainTypes.EMPTY_THE_CART,
+  payload: true,
+});
+
 export const removeFromCartAC = (sku) => ({
   type: mainTypes.REMOVE_FROM_CART,
   payload: sku,
