@@ -177,7 +177,7 @@ function OrderForm() {
               />
             )}
             name="delivery_date"
-            type="delivery_date"
+            type="date"
             rules={{ required: true }}
             control={control}
             defaultValue=""
