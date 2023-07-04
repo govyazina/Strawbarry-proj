@@ -82,7 +82,7 @@ function OrderForm() {
 
   const totalPrice = totalCart + deliveryPrice;
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const order = cart.reduce((acc, el) => {
       const obj = {
         sku: String(el.sku),
@@ -109,16 +109,15 @@ function OrderForm() {
 
     console.log(`Данные на сервер: ${JSON.stringify(orderData)}`);
 
-    // const res = await fetch('https://strawberry.nmsc.pchapl.dev/order', {
-    //   method: 'POST',
-    //   body: JSON.stringify(orderData),
-    // });
-    // if (res.status === 200) {
-    //   setIsModalOpen(true);
-    //   reset();
-    // } else {
-    //   console.log('Error');
-    // }
+    const res = await fetch('https://strawberry.nmsc.pchapl.dev/order', {
+      method: 'POST',
+      body: JSON.stringify(orderData),
+    });
+    if (res.status === 200) {
+      // setIsModalOpen(true);
+    } else {
+      console.log('Error');
+    }
     setIsModalOpen(true);
     reset();
   };
@@ -177,8 +176,8 @@ function OrderForm() {
                 className={styles.inputs}
               />
             )}
-            name="date"
-            type="date"
+            name="delivery_date"
+            type="delivery_date"
             rules={{ required: true }}
             control={control}
             defaultValue=""
@@ -266,13 +265,13 @@ function OrderForm() {
           </Text>
           <Controller
             render={({ field }) => <Input className={styles.inputs} {...field} placeholder="Имя получателя" />}
-            name="recipient-name"
+            name="recipient_name"
             control={control}
             defaultValue=""
           />
           <Controller
             render={({ field }) => <Input className={styles.inputs} {...field} placeholder="Телефон получателя +357xxxxxxxxх" />}
-            name="recipient-phone"
+            name="recipient_phone"
             type="phone"
             control={control}
             defaultValue=""
