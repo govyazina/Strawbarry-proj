@@ -6,6 +6,7 @@ const mainTypes = {
   COUNT_CART: 'COUNT_CART',
   REMOVE_FROM_CART: 'REMOVE_FROM_CART',
   SET_FILTER: 'SET_FILTER',
+  EMPTY_THE_CART: 'EMPTY_THE_CART',
 };
 
 export default mainTypes;
