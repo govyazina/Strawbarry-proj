@@ -73,3 +73,20 @@ export const getOrderListThunk = () => (dispatch) => {
     orderListRequestedAC(),
   );
 };
+
+export function getDate(datestr) {
+  const date = new Date(datestr);
+  if (date.isNaN || date.toLocaleDateString() === 'Invalid Date') {
+    return '';
+  }
+  return ` от ${date.toLocaleDateString()}`;
+}
+
+export function countNumberOfBouquets(order) {
+  const number = order.products.reduce((acc, el) => {
+    // eslint-disable-next-line no-param-reassign
+    acc += el.count;
+    return acc;
+  }, 0);
+  return number;
+}

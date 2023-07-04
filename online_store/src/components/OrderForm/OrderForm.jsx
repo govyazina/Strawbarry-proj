@@ -169,8 +169,8 @@ function OrderForm() {
                 className={styles.inputs}
               />
             )}
-            name="date"
-            type="date"
+            name="delivery_date"
+            type="delivery_date"
             control={control}
             defaultValue=""
           />
@@ -256,13 +256,13 @@ function OrderForm() {
           </Text>
           <Controller
             render={({ field }) => <Input className={styles.inputs} {...field} placeholder="Имя получателя" />}
-            name="recipient-name"
+            name="recipient_name"
             control={control}
             defaultValue=""
           />
           <Controller
             render={({ field }) => <Input className={styles.inputs} {...field} placeholder="Телефон получателя +357xxxxxxxxх" />}
-            name="recipient-phone"
+            name="recipient_phone"
             type="phone"
             control={control}
             defaultValue=""
