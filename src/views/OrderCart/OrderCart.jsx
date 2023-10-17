@@ -10,7 +10,7 @@ import useProductList from '../../hooks/useProductList';
 // function OrderCart({product, increase, decrease, count, id}) {
 function OrderCart({ product }) {
   const {
-    price, berries, topper, id, quantity,
+    price, berries, topper, quantity,
   } = product;
 
   const [count, setCount] = useState(quantity);
@@ -22,37 +22,23 @@ function OrderCart({ product }) {
   //   dispatch(countCartAC(orderItem));
   // };
 
-  const increase = (id) => {
-    if (product.id === id) {
-      let newCount = count;
-      newCount++;
-      const newSum = price * newCount;
-      setCount(newCount);
-      setSum(newSum);
-    }
+  const increase = () => {
+    const newCount = count + 1;
+    const newSum = price * newCount;
+    setCount(newCount);
+    setSum(newSum);
     return product;
   };
 
-  const decrease = (id) => {
-    if (product.id === id) {
-      const lowerCount = count - 1 > 1 ? count - 1 : 1;
-      const lowerSum = price * lowerCount;
-      setCount(lowerCount);
-      setSum(lowerSum);
-    }
+  const decrease = () => {
+    const lowerCount = count - 1 > 1 ? count - 1 : 1;
+    const lowerSum = price * lowerCount;
+    setCount(lowerCount);
+    setSum(lowerSum);
     return product;
   };
 
   const productData = useProductList(product.sku);
-  console.log(productData, product);
-
-  // const {id} = useParams();
-  // const dispatch = useDispatch();
-  // const deleteCart = (id) => {
-  //     dispatch(deleteCartAC(id))
-  //     console.log('delete', id)
-  // }
-
   if (!productData) {
     return <div>loading</div>;
   }
@@ -63,7 +49,6 @@ function OrderCart({ product }) {
         <div className={styles.bouquetPic}>
           <img
             className={styles.cartPic}
-              // src=''
             src={productData.photos[0]}
             alt="choicePic"
           />
@@ -85,12 +70,11 @@ function OrderCart({ product }) {
 
       <div className={styles.quantity}>
         <div className={styles.count}>{count}</div>
-        {/* <input type='text' className={styles.count__input} min='1' value={quantity} onChange={(e) => changeValue(id, +e.target.value)} /> */}
         <div className={styles.control}>
-          <button className={styles.button__quantity} onClick={() => increase(id)}>
+          <button type="button" className={styles.button__quantity} onClick={() => increase()}>
             <UpOutlined />
           </button>
-          <button className={styles.button__quantity} onClick={() => decrease(id)}>
+          <button type="button" className={styles.button__quantity} onClick={() => decrease()}>
             <DownOutlined />
           </button>
         </div>

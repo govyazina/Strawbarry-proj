@@ -46,13 +46,13 @@ export default function OrderList() {
                 {getDate(order.created)}
               </p>
             </Link>
-        )}
+                    )}
           key={order.id}
           extra={(
             <Tooltip title="Удалить заказ">
               <Button shape="circle" icon={<CloseOutlined />} id={styles.orderBtnDelete} />
             </Tooltip>
-)}
+                    )}
           className={styles.orderCard}
         >
           <Row>
@@ -60,13 +60,9 @@ export default function OrderList() {
               <Space className={styles.orderImg}>
                 {photosOfBouquets(order).map((src, i) => (
                   i < 3 && (
-                  <div className={styles.smallImg} key={src}>
-                    <img
-                      className={styles.smallImgItself}
-                      src={src}
-                      alt="Выбранный букет"
-                    />
-                  </div>
+                    <div className={styles.smallImg} key={src}>
+                      <img className={styles.smallImgItself} src={src} alt="Выбранный букет" />
+                    </div>
                   )
                 ))}
               </Space>
@@ -75,17 +71,17 @@ export default function OrderList() {
               <p>
                 Заказчик:
                 {' '}
-                {order.data.name}
+                {order.data?.name}
               </p>
               <p>
                 Тип доставки:
                 {' '}
-                {order.data.delivery === 'no' ? 'самовывоз' : 'курьер'}
+                {order.data?.delivery === 'no' ? 'самовывоз' : 'курьер'}
               </p>
               <p>
                 Адрес доставки/самовывоза:
                 {' '}
-                {order.data.delivery === 'no' ? 'Γεωρ. Α 87, Γερμασόγεια' : order.data.address}
+                {order.data?.delivery === 'no' ? 'Γεωρ. Α 87, Γερμασόγεια' : order.data?.address}
               </p>
             </Col>
           </Row>
