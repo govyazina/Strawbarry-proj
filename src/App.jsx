@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Header from './views/Header/Header';
 import Footer from './views/Footer/Footer';
@@ -11,7 +11,6 @@ import OrderDetails from './views/OrderDetails/OrderDetails';
 import Cart from './views/Cart/Cart';
 import './App.css';
 import store from './store/store';
-// import SelectedBouquets from './components/SelectedBouquets/SelectedBouquets';
 
 function App() {
   return (
